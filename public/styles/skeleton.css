@@ -1,0 +1,224 @@
+/**
+ * Skeleton Screens & CLS Prevention
+ * 
+ * This CSS reserves space for Lit components BEFORE they load
+ * to prevent Cumulative Layout Shift (CLS)
+ */
+
+/* ============================================
+   CORE: Hide undefined components by default
+   ============================================ */
+*:not(:defined) {
+    visibility: hidden;
+}
+
+/* ============================================
+   SKELETON ANIMATIONS
+   ============================================ */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ============================================
+   LAYOUT COMPONENTS - Reserve exact space
+   ============================================ */
+
+/* Header */
+boson-header:not(:defined),
+resp-header:not(:defined) {
+    visibility: visible;
+    display: block;
+    height: 80px;
+    background: linear-gradient(
+        90deg,
+        var(--color-surface, #1a1f2e) 25%,
+        rgba(255, 255, 255, 0.05) 50%,
+        var(--color-surface, #1a1f2e) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Footer */
+boson-footer:not(:defined),
+resp-footer:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 200px;
+    background: var(--color-surface, #0d1119);
+}
+
+/* Landing Layout */
+boson-landing-layout:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 100vh;
+}
+
+/* Blog Layout */
+boson-blog-layout:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 80vh;
+}
+
+/* ============================================
+   SECTIONS - Critical above-the-fold content
+   ============================================ */
+
+/* Hero Section */
+hero-section:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 600px;
+    padding: 4rem 2rem;
+    background: linear-gradient(
+        135deg,
+        var(--color-background, #0d1119) 0%,
+        var(--color-surface, #1a1f2e) 100%
+    );
+}
+
+/* Call to Action */
+call-to-action-section:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 300px;
+    padding: 3rem 2rem;
+}
+
+/* Article List */
+article-list-section:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 500px;
+    padding: 2rem;
+}
+
+/* How It Works */
+how-it-works-section:not(:defined) {
+    visibility: visible;
+    display: block;
+    min-height: 600px;
+    padding: 3rem 2rem;
+}
+
+/* ============================================
+   UI COMPONENTS - Interactive elements
+   ============================================ */
+
+/* Buttons */
+boson-button:not(:defined) {
+    visibility: visible;
+    display: inline-block;
+    min-width: 120px;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: 8px;
+    background: linear-gradient(
+        90deg,
+        rgba(249, 57, 4, 0.8) 0%,
+        rgba(249, 57, 4, 0.6) 100%
+    );
+    animation: pulse 2s infinite;
+}
+
+/* Logo */
+boson-logo:not(:defined) {
+    visibility: visible;
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Search Input */
+boson-search-input:not(:defined) {
+    visibility: visible;
+    display: block;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+/* Breadcrumbs */
+boson-breadcrumbs:not(:defined) {
+    visibility: visible;
+    display: block;
+    height: 32px;
+    margin: 1rem 0;
+}
+
+/* ============================================
+   PERFORMANCE: CSS Containment
+   Isolate components to prevent layout thrashing
+   ============================================ */
+hero-section,
+boson-header,
+boson-footer,
+call-to-action-section,
+article-list-section {
+    contain: layout style paint;
+    content-visibility: auto;
+}
+
+/* ============================================
+   RESPONSIVE: Mobile-specific adjustments
+   ============================================ */
+@media (max-width: 768px) {
+    hero-section:not(:defined) {
+        min-height: 500px;
+        padding: 2rem 1rem;
+    }
+    
+    boson-header:not(:defined),
+    resp-header:not(:defined) {
+        height: 64px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY: Reduced motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *:not(:defined) {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   DEBUG MODE: See skeleton in action
+   Uncomment to visualize skeleton screens
+   ============================================ */
+/*
+*:not(:defined) {
+    outline: 2px dashed red !important;
+    outline-offset: -2px;
+}
+
+*:not(:defined)::before {
+    content: attr(tagname) " (loading...)";
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red;
+    font-size: 12px;
+    background: yellow;
+    padding: 2px 4px;
+}
+*/

@@ -72,5 +72,8 @@ Used by:
 ```
 
 ## Status
-Current state: stable core architecture, all base tests passing.
+Current state: 
+- Core architecture (Clean Architecture) defined.
+- `ArticleApiClient` implemented and connecting to backend `http://localhost:8000`.
+- Entry point `test-app.js` demonstrates live API data fetching.
 

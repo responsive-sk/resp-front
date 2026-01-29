@@ -1,17 +1,11 @@
 <boson-header>
     <boson-button class="logo" type="ghost" slot="logo" href="<?= $this->url('home') ?>">
-<!--        <img class="logo" src="/images/logo.svg" alt="logo" width="255" height="100" loading="eager">-->
-        <img class="logo"
-             src="/images/logo.svg"
-             alt="responsive.sk logo"
-             width="255"
-             height="100"
-             fetchpriority="high">
+        <!--        <img class="logo" src="/images/logo.svg" alt="logo" width="255" height="100" loading="eager">-->
+        <img class="logo" src="/images/logo.svg" alt="responsive.sk logo" width="255" height="100" fetchpriority="high">
     </boson-button>
 
     <boson-dropdown>
-        <boson-button type="ghost" slot="summary"
-            href="/docs">
+        <boson-button type="ghost" slot="summary" href="/docs">
             References
         </boson-button>
 
@@ -32,8 +26,7 @@
     </boson-dropdown>
 
     <boson-dropdown>
-        <boson-button type="ghost" slot="summary"
-            href="/blog">
+        <boson-button type="ghost" slot="summary" href="/blog">
             Blog
         </boson-button>
 
@@ -44,10 +37,16 @@
         <?php endforeach; ?>
     </boson-dropdown>
 
+    <boson-button type="ghost" href="<?= $this->url('about') ?>">
+        About Us
+    </boson-button>
+
+    <boson-button type="ghost" href="<?= $this->url('contact') ?>">
+        Contact
+    </boson-button>
+
     <!-- Search input -->
-    <boson-search-input
-        action="/search"
-        query="<?= $this->escapeHtml($_GET['q'] ?? '') ?>">
+    <boson-search-input action="/search" query="<?= $this->escapeHtml($_GET['q'] ?? '') ?>">
     </boson-search-input>
 
     <boson-button type="ghost" slot="aside" external href="https://github.com/boson-php/boson" pc="true">
@@ -84,7 +83,8 @@
 
         <div slot="blog">
             <?php foreach ($blogCategories as $category): ?>
-                <boson-button type="ghost" inheader="true" slot="blog" href="/blog/category/<?= $this->escapeHtml($category) ?>">
+                <boson-button type="ghost" inheader="true" slot="blog"
+                    href="/blog/category/<?= $this->escapeHtml($category) ?>">
                     <?= $this->escapeHtml(ucfirst($category)) ?>
                 </boson-button>
             <?php endforeach; ?>
@@ -97,13 +97,13 @@
             </boson-button>
 
             <?php if ($docsVersion): ?>
-            <boson-button type="ghost" href="<?= $this->url('doc.show', [
-                'version' => $docsVersion->getName(),
-                'page' => 'introduction'
-            ]) ?>">
-                Get Started
-                <img src="/images/icons/arrow_up_right.svg" alt="arrow_up_right" loading="lazy" width="16" height="16">
-            </boson-button>
+                <boson-button type="ghost" href="<?= $this->url('doc.show', [
+                    'version' => $docsVersion->getName(),
+                    'page' => 'introduction'
+                ]) ?>">
+                    Get Started
+                    <img src="/images/icons/arrow_up_right.svg" alt="arrow_up_right" loading="lazy" width="16" height="16">
+                </boson-button>
             <?php endif; ?>
         </div>
 

@@ -206,13 +206,14 @@ jednoduchý deploy
 
 ---
 
-## Phase 2 – Data layer
+## Phase 2 – Data layer & API Integration
 
-- [ ] Repository pattern for SQLite
-- [ ] Migrations system
-- [ ] Seed data
-- [ ] Transactions
-- [ ] Error handling strategy
+- [x] ArticleApiClient (Backend communication)
+- [ ] Repository pattern (API implementation)
+- [ ] Repository pattern (SQLite implementation - optional/later)
+- [ ] Error handling strategy (HTTP errors)
+
+---
 
 ---
 

@@ -1,10 +1,10 @@
 <?php $this->layout('layout::master', [
-        'title' => $title,
-        'showHeader' => true,
-        'showFooter' => true,
-        'cssUrl' => '/build/assets/app.css',
-        'jsUrl' => '/build/assets/app.js',
-        'currentRoute' => 'about',
+    'title' => $title,
+    'showHeader' => true,
+    'showFooter' => true,
+    'cssUrl' => '/build/assets/app.css',
+    'jsUrl' => '/build/assets/app.js',
+    'currentRoute' => 'about',
 ]) ?>
 
 <?php $this->start('main') ?>
@@ -17,18 +17,42 @@
     <segment-section>
 
         <span slot="section">
-                About Us
+            About Us
         </span>
-        
-        <h2>Welcome :)</h2>
 
-            <span slot="title">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-                <span class="emphasis">standard capabilities</span>
-            </span>
-        <h4 class="red">Get started right now!</h4>
+        <h2>Our Technical Expertise</h2>
+
+        <span slot="title">
+            We are a team of passionate developers building robust solutions on both <span class="emphasis">frontend and backend</span>.
+        </span>
+
+        <?php
+        $accordionData = json_encode([
+            [
+                'headline' => 'Frontend', 
+                'text' => 'Modern, responsive interfaces built with Lit, Web Components, and Vanilla JS. We prioritize performance and user experience.'
+            ],
+            [
+                'headline' => 'Backend', 
+                'text' => 'Robust PHP architectures using DDD principles, Clean Code through Doctrine ORM, and scalable database designs.'
+            ],
+            [
+                'headline' => 'API Design', 
+                'text' => 'RESTful APIs that are secure, documented, and easy to consume. Bridging the gap between your data and your users.'
+            ],
+            [
+                'headline' => 'Architecture', 
+                'text' => 'Building scalable, maintainable systems that grow with your business needs.'
+            ],
+        ]);
+        ?>
+        <div style="margin: 40px 0;">
+            <horizontal-accordion content='<?= $accordionData ?>'></horizontal-accordion>
+        </div>
+        <h4 class="red">We bring your ideas to life!</h4>
 
         <boson-button slot="footer" href="<?= $this->url('home') ?>">
-            Try Boson For Free
+            View Our Projects
         </boson-button>
     </segment-section>
 

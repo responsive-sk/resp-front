@@ -11,10 +11,9 @@
 
 <boson-landing-layout>
     <hero-section>
-        <h1 slot="title">Go Native<br>
+        <h1 slot="title">Be Native<br>
             <span>Stay [ PHP ]</span>
         </h1>
-        <!-- <h2 slot="title">Stay [ PHP ]</h2> -->
 
         <span slot="description">
             Turn your PHP project into cross-platform, compact, fast, native

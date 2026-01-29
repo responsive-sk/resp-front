@@ -5,7 +5,7 @@ export default defineConfig({
   root: './src',
   
   build: {
-    outDir: resolve(__dirname, '../blog/public/build/assets'),
+    outDir: resolve(__dirname, '../../../public/build/assets'),
     emptyOutDir: true,
     
     rollupOptions: {
