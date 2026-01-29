@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "/node_modules/.vite/deps/lit.js?v=c97fc446";
+import { LitElement, html, css } from 'lit';
 
 export class ArticleCard extends LitElement {
   static properties = {
