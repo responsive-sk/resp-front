@@ -1,0 +1,468 @@
+# CSS Architecture: Shadow DOM + Light DOM Styling Strategy
+
+## Core Principle
+
+**Shadow DOM styles handle component structure. Light DOM styles handle content presentation.**
+
+---
+
+## Architecture Rules
+
+### 1. Web Component Styles (.js files)
+
+Component styles (inside `static styles`) should contain:
+
+✅ **DO:**
+- Layout and positioning
+- Component-specific structure
+- CSS Custom Properties (variables) definitions
+- `::slotted()` selectors for direct slotted elements only
+- Container queries
+- Internal component state styles
+
+❌ **DON'T:**
+- Typography (font-family, font-size, line-height)
+- Content colors for slotted elements' descendants
+- Global resets
+- Detailed slotted content styling
+
+**Example (hero-section.js):**
+
+```javascript
+static styles = [sharedStyles, css`
+    /* ✅ Layout structure */
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 100px);
+    }
+
+    /* ✅ Direct slotted element styling */
+    .headlines ::slotted(h1) {
+        margin: 0 !important;
+        font-size: var(--font-size-h1) !important;
+        color: var(--color-text-brand) !important;
+    }
+
+    /* ❌ WRONG - Cannot target descendants */
+    .headlines ::slotted(h1 span) {
+        color: red; /* This will NOT work */
+    }
+
+    /* ✅ CSS Variables for theming */
+    :host {
+        --component-gap: 2em;
+        --component-padding: 3em;
+    }
+`];
+```
+
+---
+
+### 2. Global Styles (typography.css, layout.css, etc.)
+
+Global stylesheets handle content presentation:
+
+✅ **DO:**
+- Typography rules (h1-h6, p, a, etc.)
+- Text colors and decorations
+- Descendant selectors (h1 span, a::before, etc.)
+- List styling
+- Global resets
+- Font loading
+
+❌ **DON'T:**
+- Component-specific layouts
+- Shadow DOM internals
+- Web Component structure
+
+**Example (typography.css):**
+
+```css
+/* ✅ Typography for Light DOM content */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title), sans-serif;
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ Descendant styling works in Light DOM */
+h1 span {
+  color: #5d4e37; /* This WILL work */
+}
+
+h1 .highlight {
+  background: linear-gradient(135deg, #da2f2e, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+```
+
+---
+
+## Why This Separation?
+
+### Shadow DOM Limitation
+
+The `::slotted()` pseudo-element has a critical limitation:
+
+```css
+/* ✅ Works - targets direct slotted element */
+::slotted(h1) { color: red; }
+
+/* ❌ Doesn't work - cannot pierce into descendants */
+::slotted(h1 span) { color: blue; }
+::slotted(h1) span { color: blue; }
+```
+
+**Reason:** `::slotted()` can only target the **top-level element** passed into a slot, not its children.
+
+### Solution: Light DOM Inheritance
+
+Since slotted content lives in the **Light DOM** (not Shadow DOM), it naturally inherits from global styles:
+
+```html
+<!-- Light DOM (app/home.php) -->
+<hero-section>
+    <h1 slot="title">
+        Go Native<br>
+        <span>Stay [ PHP ]</span>  <!-- Inherits from typography.css -->
+    </h1>
+</hero-section>
+```
+
+The `<h1>` and `<span>` are in Light DOM, so they:
+1. Receive base styles from `typography.css`
+2. Can be overridden by component's `::slotted(h1)` for direct properties
+3. Keep descendant styles (span) from global CSS
+
+---
+
+## File Organization Strategy
+
+### Project Structure
+
+```
+assets/
+├── components/
+│   └── sections/
+│       ├── hero-section.js       # Layout + ::slotted() only
+│       └── segment-section.js    # Layout + ::slotted() only
+├── styles/
+│   ├── typography.css            # Font styles, h1-h6, p, a, span
+│   ├── layout.css                # Global layout utilities
+│   ├── fonts.css                 # @font-face declarations
+│   └── docs.css                  # Documentation-specific styles
+├── utils/
+│   └── sharedStyles.js           # CSS variables (design tokens)
+└── app.css                       # Import orchestration
+```
+
+### Import Order (app.css)
+
+```css
+/* 1. Design tokens (CSS variables) */
+@import './utils/sharedStyles.js';
+
+/* 2. Fonts */
+@import './styles/fonts.css';
+
+/* 3. Typography (Light DOM content) */
+@import './styles/typography.css';
+
+/* 4. Layout utilities */
+@import './styles/layout.css';
+
+/* 5. Feature-specific */
+@import './styles/docs.css';
+```
+
+---
+
+## Design Token Strategy (sharedStyles.js)
+
+Define all CSS Custom Properties in one place:
+
+```javascript
+import { css } from 'lit';
+
+export const sharedStyles = css`
+  :host {
+    /* Typography */
+    --font-title: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-size-h1: clamp(3rem, 5vw, 5rem);
+    --font-size-h2: clamp(2rem, 4vw, 3.5rem);
+    --font-line-height-h1: 1.1;
+
+    /* Colors */
+    --color-text: #e8e6e3;
+    --color-text-brand: #da2f2e;
+    --color-text-secondary: #a0a0a0;
+    --color-bg: #0d1119;
+    --color-border: #1a1f2e;
+
+    /* Layout */
+    --width-max: 1400px;
+    --width-content: 90vw;
+    --landing-layout-gap: 12em;
+  }
+`;
+```
+
+### Usage in Components
+
+```javascript
+import { sharedStyles } from '@/utils/sharedStyles.js';
+
+static styles = [sharedStyles, css`
+    /* Component can now use all variables */
+    .container {
+        max-width: var(--width-max);
+        gap: var(--landing-layout-gap);
+    }
+`];
+```
+
+### Usage in Global CSS
+
+```css
+/* typography.css */
+h1 {
+  font-family: var(--font-title);
+  font-size: var(--font-size-h1);
+  line-height: var(--font-line-height-h1);
+  color: var(--color-text);
+}
+
+h1 span {
+  color: var(--color-text-brand);
+}
+```
+
+---
+
+## Decision Matrix
+
+| Requirement | Location | Selector |
+|------------|----------|----------|
+| Component layout | Component .js | `.container`, `.wrapper` |
+| Slotted element base | Component .js | `::slotted(h1)` |
+| Slotted descendants | Global CSS | `h1 span`, `h1 .class` |
+| Typography | typography.css | `h1`, `p`, `a` |
+| Colors/theming | sharedStyles.js | CSS variables |
+| Fonts | fonts.css | `@font-face` |
+| Utilities | layout.css | `.flex`, `.grid` |
+
+---
+
+## Common Patterns
+
+### Pattern 1: Themed Headings
+
+**Component (hero-section.js):**
+```javascript
+.headlines ::slotted(h1) {
+    font-size: var(--font-size-h1) !important;
+    color: var(--color-text-brand) !important;
+}
+```
+
+**Global (typography.css):**
+```css
+h1 span {
+    color: #5d4e37; /* Override for span inside h1 */
+}
+
+h1 .gradient {
+    background: linear-gradient(135deg, #da2f2e, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+```
+
+**Usage (app/home.php):**
+```html
+<hero-section>
+    <h1 slot="title">
+        Go Native<br>
+        <span>Stay [ PHP ]</span>
+    </h1>
+</hero-section>
+```
+
+### Pattern 2: Button Variants
+
+**Component:**
+```javascript
+::slotted(boson-button) {
+    margin-top: 1em;
+}
+```
+
+**Global:**
+```css
+boson-button[variant="primary"] {
+    --button-bg: var(--color-text-brand);
+    --button-text: white;
+}
+```
+
+### Pattern 3: List Styling
+
+**Component:**
+```javascript
+::slotted(ul) {
+    list-style-image: url(/images/icons/check.svg);
+}
+```
+
+**Global:**
+```css
+ul > li::marker {
+    color: var(--color-text-brand);
+}
+
+ul ul > li {
+    font-size: var(--font-size-secondary);
+}
+```
+
+---
+
+## Testing Strategy
+
+### 1. Shadow DOM Inspection
+
+```javascript
+// Browser DevTools Console
+const hero = document.querySelector('hero-section');
+console.log(hero.shadowRoot); // Check Shadow DOM styles
+```
+
+### 2. Light DOM Verification
+
+```javascript
+// Check if global styles apply
+const h1 = document.querySelector('h1[slot="title"]');
+const span = h1.querySelector('span');
+console.log(getComputedStyle(span).color); // Should reflect typography.css
+```
+
+### 3. CSS Variable Cascade
+
+```javascript
+// Verify design tokens
+console.log(getComputedStyle(hero).getPropertyValue('--font-size-h1'));
+```
+
+---
+
+## Migration Checklist
+
+When refactoring existing components:
+
+- [ ] Extract typography rules to `typography.css`
+- [ ] Move color definitions to `sharedStyles.js` as CSS variables
+- [ ] Keep only layout/structure in component `.js` files
+- [ ] Replace `::slotted(element descendant)` with global CSS
+- [ ] Ensure `::slotted()` targets only direct children
+- [ ] Test in multiple browsers (especially Safari for `::slotted()` quirks)
+- [ ] Verify no `!important` wars between Shadow/Light DOM
+- [ ] Document any component-specific overrides
+
+---
+
+## Performance Considerations
+
+### ✅ Benefits
+
+1. **Smaller component bundles** - Less CSS per component
+2. **Better caching** - Global CSS cached separately
+3. **Reduced specificity wars** - Clear separation of concerns
+4. **Easier theming** - CSS variables in one place
+
+### ⚠️ Considerations
+
+1. **Global CSS load** - All typography loads upfront (acceptable for critical styles)
+2. **FOUC prevention** - Inline critical CSS in `<head>` (see `layout/master.php`)
+3. **Variable fallbacks** - Always provide fallback values:
+   ```css
+   color: var(--color-text, #e8e6e3);
+   ```
+
+---
+
+## Real-World Example
+
+**Before (everything in component):**
+
+```javascript
+// hero-section.js - ❌ BAD
+static styles = css`
+    .headlines h1 {
+        font-family: 'Inter', sans-serif;
+        font-size: 5rem;
+        color: #da2f2e;
+    }
+    .headlines h1 span {
+        color: #5d4e37; /* Won't work anyway! */
+    }
+`;
+```
+
+**After (separated concerns):**
+
+```javascript
+// hero-section.js - ✅ GOOD
+static styles = [sharedStyles, css`
+    .headlines ::slotted(h1) {
+        font-size: var(--font-size-h1) !important;
+        color: var(--color-text-brand) !important;
+    }
+`];
+```
+
+```css
+/* typography.css - ✅ GOOD */
+h1 {
+    font-family: var(--font-title);
+    font-size: var(--font-size-h1);
+}
+
+h1 span {
+    color: #5d4e37;
+}
+```
+
+---
+
+## References
+
+- [MDN: ::slotted() pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted)
+- [Lit: Styles documentation](https://lit.dev/docs/components/styles/)
+- [Web Components: Shadow DOM styling](https://web.dev/shadowdom-301/)
+- [CSS Custom Properties spec](https://www.w3.org/TR/css-variables-1/)
+
+---
+
+## Summary
+
+| Aspect | Shadow DOM (.js) | Light DOM (global CSS) |
+|--------|------------------|------------------------|
+| **Purpose** | Component structure | Content presentation |
+| **Scope** | Encapsulated | Global inheritance |
+| **Selectors** | `::slotted(element)` | `element`, `element descendant` |
+| **Use for** | Layout, positioning | Typography, colors |
+| **Variables** | Define tokens | Consume tokens |
+| **Specificity** | High (needs `!important`) | Normal cascade |
+
+**Golden Rule:** If it's about **how the component is arranged**, put it in Shadow DOM. If it's about **how the content looks**, put it in Light DOM.
+
+---
+
+**Version:** 1.0  
+**Last Updated:** 2026-01-29  
+**Author:** Boson Team  
+**License:** MIT

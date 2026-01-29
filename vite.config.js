@@ -1,30 +1,47 @@
-import { defineConfig, loadEnv } from 'vite';
-import path from 'path';
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
-export default ({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'VITE_');
-  return defineConfig({
-    root: './src',
-
-    server: { port: 5173 },
-    publicDir: path.resolve(__dirname, 'public'),
-    build: {
-      outDir: path.resolve(__dirname, 'public/build'),
-      emptyOutDir: true,
-      rollupOptions: {
-        input: path.resolve(__dirname, 'src/app.js'),
-        output: { entryFileNames:'[name].js', chunkFileNames:'[name].js', assetFileNames:'[name].[ext]' }
+export default defineConfig({
+  root: './src',
+  
+  build: {
+    outDir: resolve(__dirname, '../../../public/build/assets'),
+    emptyOutDir: true,
+    
+    rollupOptions: {
+      input: {
+        app: resolve(__dirname, 'src/app.js'),
+      },
+      output: {
+        entryFileNames: '[name].js',
+        chunkFileNames: 'chunks/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'app.css') {
+            return '[name].css';
+          }
+          return 'assets/[name]-[hash].[ext]';
+        }
       }
     },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-      },
-    },
-    define: {
-      __API_URL__: JSON.stringify(env.VITE_API_URL),
-      __APP_ENV__: JSON.stringify(env.VITE_APP_ENV),
-      __DB_PATH__: JSON.stringify(env.DB_PATH),
+    
+    // Minify for production (using esbuild which is faster and built-in)
+    minify: 'esbuild',
+    
+    // Generate sourcemaps for debugging
+    sourcemap: false,
+  },
+  
+  // server: {
+  //   port: 5174,
+  //   strictPort: true,
+  //   cors: true,
+  // },
+  
+  // Resolve aliases
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
     }
-  });
-};
+  }
+});
+
