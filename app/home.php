@@ -9,26 +9,12 @@
 
 <?php $this->start('main') ?>
 
+<h1>Be Native<br>
+    <span>Stay [ PHP ]</span>
+</h1>
 <boson-landing-layout>
-    <hero-section>
-        <h1 slot="title">Be Native<br>
-            <span>Stay [ PHP ]</span>
-        </h1>
 
-        <span slot="description">
-            Turn your PHP project into cross-platform, compact, fast, native
-            applications for Windows, Linux and macOS.
-        </span>
 
-        <boson-button slot="buttons" href="/about" icon="/images/icons/arrow_primary.svg" icon-width="20"
-            icon-height="20">
-            About Us
-        </boson-button>
-
-        <span slot="discovery">
-            Discover more about boson
-        </span>
-    </hero-section>
 
     <segment-section>
         <span id="nativeness" class="anchor"></span>

@@ -56,7 +56,7 @@
     </style>
 
     <!-- 4. Skeleton CSS - Prevents Layout Shifts (CLS) -->
-    <link rel="stylesheet" href="/styles/skeleton.css">
+    <!-- <link rel="stylesheet" href="/styles/skeleton.css"> -->
 
     <!-- 5. Link na full CSS -->
     <?php if (isset($cssUrl) && $cssUrl): ?>
@@ -65,22 +65,22 @@
 </head>
 
 <body>
-        <?php if (!isset($showHeader) || $showHeader): ?>
-            <?php $this->insert('partials::header', [
-                'currentRoute' => $currentRoute ?? '',
-                'searchQuery' => $searchQuery ?? '',
-            ]) ?>
+    <?php if (!isset($showHeader) || $showHeader): ?>
+        <?php $this->insert('partials::header', [
+            'currentRoute' => $currentRoute ?? '',
+            'searchQuery' => $searchQuery ?? '',
+        ]) ?>
     <?php endif; ?>
     <main>
-            <?= $this->section('main') ?>
+        <?= $this->section('main') ?>
     </main>
-    
+
     <?php if (!isset($showFooter) || $showFooter): ?>
-            <?php $this->insert('partials::footer') ?>
-        <?php endif; ?>
-        <!-- Scripts - w3c recommendation: If a script has type="module", you should not include the defer attribute since module scripts defer automatically. -->
+        <?php $this->insert('partials::footer') ?>
+    <?php endif; ?>
+    <!-- Scripts - w3c recommendation: If a script has type="module", you should not include the defer attribute since module scripts defer automatically. -->
     <?php if (isset($jsUrl) && $jsUrl): ?>
-            <script type="module" src="<?= $jsUrl ?>"></script>
+        <script type="module" src="<?= $jsUrl ?>"></script>
     <?php endif; ?>
 </body>
 
