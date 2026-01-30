@@ -7,8 +7,8 @@ $this->layout('layout::master', [
     'jsUrl' => $jsUrl ?? '/build/assets/app.js',
     'currentRoute' => $currentRoute ?? 'blog_index',
     'blogCategories' => $blogCategories ?? [],
-    'docsVersion' => $docsVersion ?? null,
-    'docsCategories' => $docsCategories ?? [],
+    // 'docsVersion' => $docsVersion ?? null,
+    // 'docsCategories' => $docsCategories ?? [],
 ]);
 ?>
 

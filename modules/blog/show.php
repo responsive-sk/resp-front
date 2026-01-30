@@ -4,7 +4,7 @@
     'showFooter' => true,
     'cssUrl' => $cssUrl ?? '/build/assets/app.css',
     'jsUrl' => $jsUrl ?? '/build/assets/app.js',
-    'currentRoute' => 'blog_show_slug',
+    'currentRoute' => 'blog.show.slug',
     'blogCategories' => $blogCategories ?? [],
     'docsVersion' => $docsVersion ?? null,
     'docsCategories' => $docsCategories ?? [],
@@ -48,6 +48,7 @@
 <boson-blog-layout>
     <article class="blog-article">
                 <!-- Article Image -->
+                <?php if($article->getImage()): // Added null check ?>
                 <div class="article-image">
                     <img src="<?= $this->escapeHtmlAttr($article->getImage()->getUrl()) ?>"
                          alt="<?= $this->escapeHtmlAttr($article->getImage()->getAlt()) ?>"
@@ -59,6 +60,7 @@
                          <?php endif; ?>
                          loading="lazy" />
                 </div>
+                <?php endif; ?>
 
                 <!-- Article Content -->
                 <div class="article-content">
@@ -69,7 +71,7 @@
     <div slot="sidebar">
         <?php $this->insert('blog::partials/categories-list', [
             'categories' => $categories ?? [],
-            'currentRoute' => $currentRoute ?? 'blog_show_slug',
+            'currentRoute' => $currentRoute ?? 'blog.show.slug',
             'category' => $category ?? null
         ]) ?>
     </div>

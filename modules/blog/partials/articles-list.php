@@ -2,7 +2,7 @@
     <article class="search-result">
         <hgroup>
             <h2>
-                <a href="<?= $this->url('blog_show_slug', ['slug' => $article->getUri()]) ?>">
+                <a href="<?= $this->url('blog.show.slug', ['slug' => $article->getUri()]) ?>">
                     <?= $this->escapeHtml($article->getTitle()->toString()) ?>
                 </a>
             </h2>

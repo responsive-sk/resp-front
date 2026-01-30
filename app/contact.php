@@ -1,6 +1,6 @@
 <?php $this->layout('layout::master', [
     'title' => $title,
-    'showHeader' => true,
+    // 'showHeader' => true,
     'showFooter' => true,
     'cssUrl' => '/build/assets/app.css',
     'jsUrl' => '/build/assets/app.js',
@@ -9,7 +9,7 @@
 
 <?php $this->start('main') ?>
 
-<boson-default-layout>
+<boson-docs-layout>
     <boson-page-title>
         <h1>Contact Us</h1>
     </boson-page-title>
@@ -78,6 +78,6 @@
 
 
 
-</boson-default-layout>
+</boson-docs-layout>
 
 <?php $this->stop() ?>
