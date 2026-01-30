@@ -43,6 +43,7 @@ async function loadMermaid() {
 
 // Lazy load sections only when they appear in DOM (excluding critical above-the-fold)
 const lazyLoadSections = {
+    'article-list-section': () => import('./components/sections/article-list-section.js'),
     'call-to-action-section': () => import('./components/sections/call-to-action-section.js'),
     'how-it-works-section': () => import('./components/sections/how-it-works-section.js'),
     'mobile-development-section': () => import('./components/sections/mobile-development-section.js'),
