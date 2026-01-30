@@ -4,6 +4,8 @@
 import './mark/components/mark-layout.ts';
 import './mark/components/mark-sidebar.ts';
 import './mark/components/mark-header.ts';
+import './mark/components/mark-table.ts';
+import './mark/components/mark-toast.ts';
 
 // Import UI Components
 import './mark/components/mark-card.ts';

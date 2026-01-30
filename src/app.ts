@@ -3,6 +3,7 @@ import './app.css';
 
 // Core components that are used on every page
 import './components/ui/button.ts';
+import './components/ui/toast.ts';  // Toast notifications
 import './components/ui/header.ts';
 import './components/ui/footer.ts';
 import './components/ui/logos/logo.ts';

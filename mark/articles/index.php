@@ -16,57 +16,63 @@
 
 <?php if (isset($articles) && count($articles) > 0): ?>
     <mark-card no-padding>
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
+        <mark-table>
+            <table>
                 <thead>
-                    <tr style="border-bottom: 1px solid #eff2f5;">
-                        <th
-                            style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; width: 60px;">
-                            ID</th>
-                        <th
-                            style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">
-                            Article</th>
-                        <th
-                            style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">
-                            Author</th>
-                        <th
-                            style="text-align: right; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">
-                            Actions</th>
+                    <tr>
+                        <th style="width: 60px;">ID</th>
+                        <th>Article</th>
+                        <th>Author</th>
+                        <th style="text-align: right;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($articles as $article): ?>
-                        <tr style="border-bottom: 1px dashed #eff2f5;">
-                            <td style="padding: 1rem 1.5rem; color: #7e8299; font-weight: 600;">
+                        <tr>
+                            <td style="color: var(--admin-text-secondary); font-weight: 600;">
                                 #<?= $article->id()->toInt() ?>
                             </td>
-                            <td style="padding: 1rem 1.5rem;">
+                            <td>
                                 <a href="<?= $this->url('blog.show.slug', ['slug' => $article->slug()->toString()]) ?>"
-                                    style="color: #464e5f; font-weight: 600; text-decoration: none; font-size: 0.95rem; display: block; margin-bottom: 0.35rem;">
+                                    style="color: var(--admin-text-primary); font-weight: 600; text-decoration: none; font-size: 0.95rem; display: block; margin-bottom: 0.35rem;">
                                     <?= $this->escapeHtml($article->title()->toString()) ?>
                                 </a>
                                 <mark-badge variant="secondary">
                                     <?= $article->status()->toString() ?>
                                 </mark-badge>
                             </td>
-                            <td style="padding: 1rem 1.5rem;">
+                            <td>
                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                     <div
-                                        style="width: 35px; height: 35px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #5e6278;">
+                                        style="width: 35px; height: 35px; background: rgba(255,255,255,0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #fff;">
                                         ID:<?= $article->authorId()->toString() ?>
                                     </div>
                                 </div>
                             </td>
-                            <td style="padding: 1rem 1.5rem; text-align: right;">
+                            <td>
                                 <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
                                     <mark-button variant="icon"
                                         href="<?= $this->url('mark.articles.edit', ['id' => $article->id()->toInt()]) ?>">
-                                        ✏️
+                                        <!-- Edit Icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg>
                                     </mark-button>
                                     <mark-button variant="icon-danger"
                                         href="<?= $this->url('mark.articles.delete', ['id' => $article->id()->toInt()]) ?>"
                                         onclick="return confirm('Delete this article?');">
-                                        🗑️
+                                        <!-- Delete Icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path
+                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                            </path>
+                                        </svg>
                                     </mark-button>
                                 </div>
                             </td>
@@ -74,7 +80,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
+        </mark-table>
     </mark-card>
 <?php else: ?>
     <mark-card>

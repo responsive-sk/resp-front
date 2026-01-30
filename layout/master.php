@@ -82,6 +82,32 @@
     <?php if (isset($jsUrl) && $jsUrl): ?>
         <script type="module" src="<?= $jsUrl ?>"></script>
     <?php endif; ?>
+    <!-- Flash Messages Integration -->
+    <?php if (isset($flash_success)): ?>
+        <script>
+            window.addEventListener('load', () => {
+                const check = setInterval(() => {
+                    if (window.BosonNotify) {
+                        clearInterval(check);
+                        BosonNotify.success(<?= json_encode($flash_success) ?>);
+                    }
+                }, 50);
+            });
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($flash_error)): ?>
+        <script>
+            window.addEventListener('load', () => {
+                const check = setInterval(() => {
+                    if (window.BosonNotify) {
+                        clearInterval(check);
+                        BosonNotify.error(<?= json_encode($flash_error) ?>);
+                    }
+                }, 50);
+            });
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>

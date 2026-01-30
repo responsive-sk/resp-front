@@ -15,48 +15,48 @@
 
 <?php if (isset($users) && count($users) > 0): ?>
     <mark-card no-padding>
-        <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
+        <mark-table>
+            <table>
                 <thead>
-                    <tr style="border-bottom: 1px solid #eff2f5;">
-                        <th style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">User</th>
-                        <th style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Role</th>
-                        <th style="text-align: left; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Joined Date</th>
-                        <th style="text-align: right; padding: 1.25rem 1.5rem; color: #b5b5c3; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Actions</th>
+                    <tr>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Joined Date</th>
+                        <th style="text-align: right;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
-                        <tr style="border-bottom: 1px dashed #eff2f5;">
-                            <td style="padding: 1rem 1.5rem;">
+                        <tr>
+                            <td>
                                 <div style="display: flex; align-items: center;">
-                                    <div style="width: 40px; height: 40px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: 600; color: #5e6278; font-size: 0.9rem;">
+                                    <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-weight: 600; color: #fff; font-size: 0.9rem;">
                                         <?= strtoupper(substr($user->email()->toString(), 0, 2)) ?>
                                     </div>
-                                    <div>
-                                        <div style="color: #464e5f; font-weight: 600; font-size: 0.95rem;">
-                                            <?= $this->escapeHtml($user->email()->toString()) ?>
-                                        </div>
+                                    <div style="color: var(--admin-text-primary); font-weight: 500;">
+                                        <?= $this->escapeHtml($user->email()->toString()) ?>
                                     </div>
                                 </div>
                             </td>
-                            <td style="padding: 1rem 1.5rem;">
+                            <td>
                                 <?php if ($user->role()->isMark()): ?>
                                     <mark-badge variant="primary">MANAGER</mark-badge>
                                 <?php else: ?>
                                     <mark-badge variant="secondary">USER</mark-badge>
                                 <?php endif; ?>
                             </td>
-                            <td style="padding: 1rem 1.5rem; color: #7e8299; font-size: 0.9rem;">
+                            <td style="color: var(--admin-text-secondary); font-size: 0.9rem;">
                                 <?= $user->createdAt()->format('M d, Y') ?>
                             </td>
-                            <td style="padding: 1rem 1.5rem; text-align: right;">
+                            <td>
                                 <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
                                     <mark-button variant="icon" href="<?= $this->url('mark.users.edit', ['id' => $user->id()->toString()]) ?>">
-                                        ✏️
+                                        <!-- Simple SVG Icon for Edit -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                                     </mark-button>
                                     <mark-button variant="icon-danger" href="<?= $this->url('mark.users.delete', ['id' => $user->id()->toString()]) ?>" onclick="return confirm('Delete this user?');">
-                                        🗑️
+                                        <!-- Simple SVG Icon for Delete -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                     </mark-button>
                                 </div>
                             </td>
@@ -64,7 +64,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
+        </mark-table>
     </mark-card>
 <?php else: ?>
     <mark-card>
