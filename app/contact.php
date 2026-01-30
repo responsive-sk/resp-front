@@ -61,6 +61,23 @@
         </boson-button>
     </segment-section>
 
+
+    <call-to-action-section>
+        <h3>
+            If you are a PHP developer, you can already <br>
+            make native cross-platform applications.<br>
+            Boson PHP makes it possible!<br>
+        </h3>
+
+        <h4 class="red">Get started right now!</h4>
+
+        <boson-button slot="footer" href="/docs/latest/installation">
+            Try Boson For Free
+        </boson-button>
+    </call-to-action-section>
+
+
+
 </boson-default-layout>
 
 <?php $this->stop() ?>

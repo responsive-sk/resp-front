@@ -9,12 +9,24 @@
 
 <?php $this->start('main') ?>
 
-<h1>Be Native<br>
-    <span>Stay [ PHP ]</span>
-</h1>
 <boson-landing-layout>
+    <hero-section>
+        <h1 slot="title">Go Native</h1>
+        <h2 slot="title">Stay<br>[ PHP ]</h2>
 
+        <span slot="description">
+            Turn your PHP project into cross-platform, compact, fast, native
+            applications for Windows, Linux and macOS.
+        </span>
 
+        <boson-button slot="buttons" href="/docs/latest/installation" icon="/images/icons/arrow_primary.svg" icon-width="20" icon-height="20">
+            Try Boson for Free
+        </boson-button>
+
+        <span slot="discovery">
+            Discover more about boson
+        </span>
+    </hero-section>
 
     <segment-section>
         <span id="nativeness" class="anchor"></span>
@@ -33,10 +45,10 @@
         </p>
     </segment-section>
 
-    <!-- <nativeness-section></nativeness-section> -->
+    <nativeness-section></nativeness-section>
 
     <segment-section>
-        <span slot="section">
+         <span slot="section">
             Solves
         </span>
 
@@ -60,7 +72,7 @@
     <solves-section></solves-section>
 
     <segment-section>
-        <span slot="section">
+         <span slot="section">
             How It Works
         </span>
 
@@ -82,9 +94,9 @@
         </p>
     </segment-section>
 
-    <!--    <how-it-works-section></how-it-works-section>-->
+<!--    <how-it-works-section></how-it-works-section>-->
 
-    <!--    <right-choice-section></right-choice-section>-->
+<!--    <right-choice-section></right-choice-section>-->
 
     <mobile-development-section>
         <segment-section type="vertical">
