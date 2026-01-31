@@ -6,6 +6,8 @@ import './mark/components/mark-sidebar.ts';
 import './mark/components/mark-header.ts';
 import './mark/components/mark-table.ts';
 import './mark/components/mark-toast.ts';
+import './mark/components/mark-chart.ts';
+import './mark/components/mark-session-warning.ts';
 
 // Import UI Components
 import './mark/components/mark-card.ts';

@@ -9,6 +9,7 @@
 <?php $this->start('main') ?>
 
 <mark-layout>
+    <mark-session-warning timeout="1800" warning="300"></mark-session-warning>
     <mark-sidebar slot="sidebar">
         <span slot="logo">Mark Panel</span>
 
