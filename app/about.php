@@ -23,25 +23,26 @@
         <h2>Our Technical Expertise</h2>
 
         <span slot="title">
-            We are a team of passionate developers building robust solutions on both <span class="emphasis">frontend and backend</span>.
+            We are a team of passionate developers building robust solutions on both <span class="emphasis">frontend and
+                backend</span>.
         </span>
 
         <?php
         $accordionData = json_encode([
             [
-                'headline' => 'Frontend', 
+                'headline' => 'Frontend',
                 'text' => 'Modern, responsive interfaces built with Lit, Web Components, and Vanilla JS. We prioritize performance and user experience.'
             ],
             [
-                'headline' => 'Backend', 
+                'headline' => 'Backend',
                 'text' => 'Robust PHP architectures using DDD principles, Clean Code through Doctrine ORM, and scalable database designs.'
             ],
             [
-                'headline' => 'API Design', 
+                'headline' => 'API Design',
                 'text' => 'RESTful APIs that are secure, documented, and easy to consume. Bridging the gap between your data and your users.'
             ],
             [
-                'headline' => 'Architecture', 
+                'headline' => 'Architecture',
                 'text' => 'Building scalable, maintainable systems that grow with your business needs.'
             ],
         ]);
@@ -82,7 +83,21 @@
 
     </mobile-development-section>
 
+    <testimonials-section></testimonials-section>
 
+    <call-to-action-section>
+        <h3>
+            If you are a PHP developer, you can already <br>
+            make native cross-platform applications.<br>
+            Boson PHP makes it possible!<br>
+        </h3>
+
+        <h4 class="red">Get started right now!</h4>
+
+        <boson-button slot="footer" href="/docs/latest/installation">
+            Try Boson For Free
+        </boson-button>
+    </call-to-action-section>
 
 </boson-default-layout>
 

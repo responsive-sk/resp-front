@@ -9,7 +9,7 @@
 
 <?php $this->start('main') ?>
 
-<boson-boson-docs-layout>
+<boson-landing-layout>
     <hero-section>
         <h1 slot="title">Be Native<br>
             <span>Stay [ PHP ]</span>
@@ -136,21 +136,6 @@
         </span>
     </segment-section>
 
-    <testimonials-section></testimonials-section>
+</boson-landing-layout>
 
-    <call-to-action-section>
-        <h3>
-            If you are a PHP developer, you can already <br>
-            make native cross-platform applications.<br>
-            Boson PHP makes it possible!<br>
-        </h3>
-
-        <h4 class="red">Get started right now!</h4>
-
-        <boson-button slot="footer" href="/docs/latest/installation">
-            Try Boson For Free
-        </boson-button>
-    </call-to-action-section>
-    </boson-docs-layout>
-
-    <?php $this->stop() ?>
+<?php $this->stop() ?>
