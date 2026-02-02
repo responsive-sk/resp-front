@@ -1,15 +1,16 @@
 <?php $this->layout('layout::master', [
     'title' => $title,
     // 'showHeader' => true,
-    'showFooter' => true,
-    'cssUrl' => '/build/assets/app.css',
-    'jsUrl' => '/build/assets/app.js',
+    // 'showFooter' => true,
+    // 'cssUrl' => '/build/assets/app.css',
+    // 'jsUrl' => '/build/assets/app.js',
     'currentRoute' => 'contact',
+    'isPjax' => isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true'
 ]) ?>
 
 <?php $this->start('main') ?>
 
-<boson-docs-layout>
+<boson-default-layout>
     <boson-page-title>
         <h1>Contact Us</h1>
     </boson-page-title>
@@ -78,6 +79,6 @@
 
 
 
-</boson-docs-layout>
+</boson-default-layout>
 
 <?php $this->stop() ?>

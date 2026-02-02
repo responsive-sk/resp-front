@@ -1,52 +1,47 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import * as MinifyHtmlPkg from 'rollup-plugin-minify-html-literals';
-
-// Handle weird CommonJS/ESM interop nesting where default export is double wrapped
-// @ts-ignore
-const minifyHTML = MinifyHtmlPkg.default?.default ?? MinifyHtmlPkg.default ?? MinifyHtmlPkg;
 
 export default defineConfig({
   root: './src',
   base: '/build/assets/',
 
   build: {
-    outDir: resolve(__dirname, '../blog/public/build/assets'),
+    outDir: resolve(__dirname, '../resp-blog/public/build/assets'),
     emptyOutDir: true,
 
     rollupOptions: {
       input: {
         app: resolve(__dirname, 'src/app.ts'),
-        mark: resolve(__dirname, 'src/mark.ts'),
       },
       output: {
-        entryFileNames: '[name].js',
+        entryFileNames: 'app.js',
         chunkFileNames: 'chunks/[name]-[hash].js',
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'app.css';
+        assetFileNames: 'app.css',
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('lit')) {
+              return 'vendor-lit';
+            }
+            return 'vendor';
           }
-          return 'assets/[name]-[hash].[ext]';
+          if (id.includes('/components/sections/')) {
+            return 'sections';
+          }
+          if (id.includes('/components/ui/')) {
+            return 'ui-kit';
+          }
         }
       }
     },
 
-    // Minify for production (using esbuild which is faster and built-in)
     minify: 'esbuild',
-
-    // Generate sourcemaps for debugging
     sourcemap: false,
   },
 
-  // Resolve aliases
+  // SPRÁVNE MIESTO PRE resolve.alias
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     }
   },
-
-  plugins: [
-    minifyHTML(),
-  ],
 });
-

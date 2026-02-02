@@ -172,24 +172,20 @@ export class HeroSection extends LitElement {
 
                     <div class="img">
                         <div class="logo-container">
-                            <boson-logo decorative></boson-logo>
+                            <boson-logo></boson-logo>
                         </div>
                     </div>
                 </div>
 
                 <aside class="bottom">
-                    <a href="#nativeness" class="discover" aria-label="Scroll down to discover more about nativeness">
+                    <a href="#nativeness" class="discover">
                         <span class="discover-container">
                             <span class="discover-text">
                                 <slot name="discovery"></slot>
                             </span>
 
                             <img class="discover-icon"
-                                 src="/images/icons/arrow_down.svg" 
-                                 alt="resp-button" 
-                                 aria-hidden="true"
-                                 width="16" 
-                                 height="16"/>
+                                 src="/images/icons/arrow_down.svg" alt="down arrow"/>
                         </span>
                     </a>
                 </aside>
@@ -199,7 +195,7 @@ export class HeroSection extends LitElement {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
-    'hero-section': HeroSection;
-  }
+    interface HTMLElementTagNameMap {
+        'hero-section': HeroSection;
+    }
 }

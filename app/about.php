@@ -1,10 +1,11 @@
 <?php $this->layout('layout::master', [
     'title' => $title,
-    'showHeader' => true,
-    'showFooter' => true,
-    'cssUrl' => '/build/assets/app.css',
-    'jsUrl' => '/build/assets/app.js',
+    // 'showHeader' => true,
+    // 'showFooter' => true,
+    // 'cssUrl' => '/build/assets/app.css',
+    // 'jsUrl' => '/build/assets/app.js',
     'currentRoute' => 'about',
+    'isPjax' => isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true'
 ]) ?>
 
 <?php $this->start('main') ?>

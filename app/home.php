@@ -9,7 +9,7 @@
 
 <?php $this->start('main') ?>
 
-<boson-landing-layout>
+<boson-landing-layout data-pjax-persist="true">
     <hero-section>
         <h1 slot="title">Be Native<br>
             <span>Stay [ PHP ]</span>
@@ -136,6 +136,10 @@
         </span>
     </segment-section>
 
+    </segment-section>
+
 </boson-landing-layout>
+
+<?= $this->pjax_component('boson-landing-layout') ?>
 
 <?php $this->stop() ?>

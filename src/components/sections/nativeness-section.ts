@@ -1,12 +1,13 @@
-import {css, html, LitElement} from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-
-import {sharedStyles} from '@/utils/sharedStyles.ts';
+import { sharedStyles } from '@/utils/sharedStyles';
 
 @customElement('nativeness-section')
 export class NativenessSection extends LitElement {
-  @property({ type: Number })
-  activeIndex: number = 0;
+    @property({ type: Number })
+    activeIndex: number = 0;
+
+    private _intervalId: number | null = null;
 
     static cfg = {
         delay: 2000 // 2 seconds
@@ -274,9 +275,6 @@ export class NativenessSection extends LitElement {
             .system-edge {
                 display: none;
             }
-            .wtf {
-
-            }
             .border-top {
                 border-color: var(--color-border) !important;
             }
@@ -306,10 +304,6 @@ export class NativenessSection extends LitElement {
         }
     `];
 
-    };
-
-    
-
     connectedCallback(): void {
         super.connectedCallback();
         this._startAnimation();
@@ -320,21 +314,21 @@ export class NativenessSection extends LitElement {
         this._stopAnimation();
     }
 
-    _startAnimation() {
-        this._intervalId = setInterval(() => {
+    private _startAnimation(): void {
+        this._intervalId = window.setInterval(() => {
             this.activeIndex = this.activeIndex === 4 ? 1 : this.activeIndex + 1;
         }, NativenessSection.cfg.delay);
     }
 
-    _stopAnimation() {
+    private _stopAnimation(): void {
         if (this._intervalId) {
             clearInterval(this._intervalId);
             this._intervalId = null;
         }
     }
 
-    _getBorderClass(borderNumber) {
-        const classes = [];
+    private _getBorderClass(borderNumber: number): string {
+        const classes: string[] = [];
 
         if (this.activeIndex === borderNumber) {
             classes.push('border-active');
@@ -351,7 +345,7 @@ export class NativenessSection extends LitElement {
         return classes.join(' ');
     }
 
-    _getSystemClass(systemNumber) {
+    private _getSystemClass(systemNumber: number): string {
         return this.activeIndex === systemNumber ? 'system system-active' : 'system';
     }
 
@@ -413,7 +407,6 @@ export class NativenessSection extends LitElement {
                                     Eloquent for UI and logic. Your routes and
                                     controllers work just like on the web.
                                 </span>
-
                             </div>
                         </div>
                         <div class="technology" id="technology-3">
@@ -438,7 +431,7 @@ export class NativenessSection extends LitElement {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
-    'nativeness-section': NativenessSection;
-  }
+    interface HTMLElementTagNameMap {
+        'nativeness-section': NativenessSection;
+    }
 }

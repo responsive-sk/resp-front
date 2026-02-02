@@ -4,38 +4,9 @@
         <img class="logo" src="/images/logo.svg" alt="responsive.sk logo" width="255" height="100" fetchpriority="high">
     </boson-button>
 
-    <boson-dropdown>
-        <boson-button type="ghost" slot="summary" href="/docs">
-            References
-        </boson-button>
-
-        <boson-button type="ghost" href="/docs/latest/introduction">
-            <img src="/images/icons/book.svg" alt="" aria-hidden="true" width="16" height="16" loading="lazy">
-            Introduction
-        </boson-button>
-
-        <boson-button type="ghost" href="/docs/latest/installation">
-            <img src="/images/icons/download.svg" alt="" aria-hidden="true" width="16" height="16" loading="lazy">
-            Installation
-        </boson-button>
-
-        <boson-button type="ghost" href="/docs/latest/getting-started">
-            <img src="/images/icons/play.svg" alt="" aria-hidden="true" width="16" height="16" loading="lazy">
-            Getting Started
-        </boson-button>
-    </boson-dropdown>
-
-    <boson-dropdown>
-        <boson-button type="ghost" slot="summary" href="/blog">
-            Blog
-        </boson-button>
-
-        <?php foreach ($blogCategories as $category): ?>
-            <boson-button type="ghost" href="/blog/category/<?= $this->escapeHtml($category) ?>">
-                <?= $this->escapeHtml(ucfirst($category)) ?>
-            </boson-button>
-        <?php endforeach; ?>
-    </boson-dropdown>
+    <boson-button type="ghost" href="<?= $this->url('blog') ?>">
+        Blog
+    </boson-button>
 
     <boson-button type="ghost" href="<?= $this->url('about') ?>">
         About Us
