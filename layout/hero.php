@@ -1,9 +1,9 @@
 <?php
-// ÚPLNÝ ZAČIATOK layout/master.php
+// ÚPLNÝ ZAČIATOK layout/hero.php
 header('Vary: X-PJAX');
 
 if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
-    // Get the title - musíme získať title z dát
+    // Get the title
     if (isset($pageTitle)) {
         $title = $pageTitle;
     } elseif (!isset($title)) {
@@ -32,67 +32,57 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        <?= $this->e($pageTitle ?? 'Responsive PHP') ?>
+        <?= $this->e($pageTitle ?? 'Boson - Native PHP Apps') ?>
     </title>
-    <meta name="description" content="<?= $this->e($metaDescription ?? 'PHP desktop apps') ?>">
+    <meta name="description"
+        content="<?= $this->e($metaDescription ?? 'Turn your PHP project into cross-platform, compact, fast, native applications.') ?>">
 
     <link rel="preload" as="image" href="/images/logo.svg">
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- <style>
-        .pjax-loading main {
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
+    <link rel="stylesheet" href="/build/assets/app.css">
+
+    <style>
+        /* Special styles for hero layout */
+        body.layout-hero {
+            margin: 0;
+            padding: 0;
+            background: #0d1119;
+            overflow-x: hidden;
         }
 
-        .pjax-loading-indicator {
-            position: fixed;
+        .hero-header-wrapper {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #FF5722 0%, #3498db 50%, #FF5722 100%);
-            background-size: 200% 100%;
-            animation: pjax-loading 1.5s ease infinite;
-            z-index: 9999;
-            display: none;
+            z-index: 100;
         }
 
-        .pjax-loading .pjax-loading-indicator {
-            display: block;
+        /* Ensure header background is transparent */
+        .hero-header-wrapper header {
+            background: transparent !important;
+            border-bottom: none !important;
         }
-
-        @keyframes pjax-loading {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-    </style> -->
-
-    <link rel="stylesheet" href="/build/assets/app.css">
+    </style>
 </head>
 
-<body>
-    <!-- <div class="pjax-loading-indicator"></div> -->
+<body class="layout-hero">
 
     <?php if (!isset($showHeader) || $showHeader): ?>
-        <?php $this->insert('partials::header') ?>
+        <div class="hero-header-wrapper">
+            <?php $this->insert('partials::header') ?>
+        </div>
     <?php endif; ?>
 
-    <main data-container>
+    <main>
         <?= $this->section('main') ?>
     </main>
-
 
     <?php if (!isset($showFooter) || $showFooter): ?>
         <?php $this->insert('partials::footer') ?>
     <?php endif; ?>
 
-    <!-- JEDINÝ SCRIPT -->
     <script type="module" src="/build/assets/app.js"></script>
 </body>
 

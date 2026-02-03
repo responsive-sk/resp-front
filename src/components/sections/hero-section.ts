@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
-import { sharedStyles } from "@/utils/sharedStyles.js";
+import { sharedStyles } from '@/utils/sharedStyles.js';
 
 @customElement('hero-section')
 export class HeroSection extends LitElement {
@@ -172,7 +172,7 @@ export class HeroSection extends LitElement {
 
                     <div class="img">
                         <div class="logo-container">
-                            <boson-logo></boson-logo>
+                            <boson-logo size="large"> SDFSD SD S</boson-logo>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php $this->layout('layout::master', [
     'title' => $title,
-    // 'showHeader' => true,
-    // 'showFooter' => true,
+    //'showHeader' => true,
+    //'showFooter' => true,
     // 'cssUrl' => '/build/assets/app.css',
     // 'jsUrl' => '/build/assets/app.js',
     'currentRoute' => 'contact',

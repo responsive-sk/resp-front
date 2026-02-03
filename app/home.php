@@ -1,145 +1,60 @@
-<?php $this->layout('layout::master', [
-    'title' => $title,
-    'showHeader' => true,
-    'showFooter' => true,
-    'cssUrl' => '/build/assets/app.css',
-    'jsUrl' => '/build/assets/app.js',
-    'currentRoute' => 'home',
-]) ?>
+<?php
+// app/home.php - Complete Rewrite
+$this->layout('layout::hero-master', [
+    'title' => 'Home - Boson',
+    'useHeroLayout' => true
+]);
+?>
 
-<?php $this->start('main') ?>
-
-<boson-landing-layout data-pjax-persist="true">
-    <hero-section>
-        <h1 slot="title">Be Native<br>
-            <span>Stay [ PHP ]</span>
-        </h1>
-
-        <span slot="description">
-            Turn your PHP project into cross-platform, compact, fast, native
-            applications for Windows, Linux and macOS.
-        </span>
-
-        <boson-button slot="buttons" href="/about" icon="/images/icons/arrow_primary.svg" icon-width="20"
-            icon-height="20">
-            About Us
-        </boson-button>
-
-        <span slot="discovery">
-            Discover more about boson
-        </span>
-    </hero-section>
-
-    <segment-section>
-        <span id="nativeness" class="anchor"></span>
-
-        <span slot="section">
-            Nativeness
-        </span>
-
-        <span slot="title">
-            Familiar PHP. Now for desktop applications.
-        </span>
-
-        <p>
-            "What makes you think PHP is only for the web?"<br>
-            – Boson is changing the rules of the game!
-        </p>
-    </segment-section>
-
-    <!-- <nativeness-section></nativeness-section> -->
-
-    <segment-section>
-        <span slot="section">
-            Solves
-        </span>
-
-        <span slot="title">
-            What you <span class="emphasis">can do</span> with <br>
-            Boson?
-        </span>
-
-        <ul>
-            <li>
-                Launch any ready-made web project in a Desktop
-                environment without a browser and server.
-            </li>
-            <li>
-                Compile an application for the desired desktop platform
-                based on an existing PHP project.
-            </li>
-        </ul>
-    </segment-section>
-
-    <solves-section></solves-section>
-
-    <segment-section>
-        <span slot="section">
-            How It Works
-        </span>
-
-        <span slot="title">
-            Under the Hood of <br />
-            Boson
-        </span>
-
-        <p>
-            Why Boson? Because it's not Electron! And much lighter...
-        </p>
-
-        <p>
-            Want to know what makes Boson so compact, fast and versatile?
-            We don't use Electron or other Chromium instance builds.
-            Instead, our solution is based on simple, yet robust and
-            up-to-date technologies that provide native performance
-            and lightweight across all platforms.
-        </p>
-    </segment-section>
-
-    <!--    <how-it-works-section></how-it-works-section>-->
-
-    <!--    <right-choice-section></right-choice-section>-->
-
-    <mobile-development-section>
-        <segment-section type="vertical">
-            <span slot="section">
-                Rich API
-            </span>
-
-            <span slot="title">
-                Expanding the boundaries<br />
-                of <span class="emphasis">standard capabilities</span>
-            </span>
-
-            <p>
-                Boson provides not only the ability to create desktop
-                applications, but also a variety of rich APIs for accessing
-                PC subsystems.
-            </p>
-
-            <p>
-                <boson-button href="/docs/latest/webview">
-                    Read More
-                </boson-button>
-            </p>
-        </segment-section>
-    </mobile-development-section>
-
-    <segment-section type="center">
-        <span slot="section">
-            Testimonials
-        </span>
-
-        <span slot="title">
-            Developers that <br />
-            believe in us
-        </span>
-    </segment-section>
-
-    </segment-section>
-
-</boson-landing-layout>
-
-<?= $this->pjax_component('boson-landing-layout') ?>
-
+<?php $this->start('hero-content') ?>
+<hero-layout logo-text="BOSON" logo-link="/" navigation='<?= json_encode([
+    ['label' => 'Docs', 'href' => '/docs/latest'],
+    ['label' => 'About', 'href' => '/about'],
+    ['label' => 'Contact', 'href' => '/contact']
+]) ?>' social-links='<?= json_encode([
+     ['label' => 'GitHub', 'href' => 'https://github.com/boson-lab'],
+     ['label' => 'Twitter', 'href' => 'https://twitter.com/boson_lab']
+ ]) ?>' copyright="© 2026 Boson Lab">
+    <!-- PJAX Container -->
+    <div id="pjax-container" data-pjax-container>
+        <horizontal-scroll-hero slides='<?= json_encode([
+            [
+                "id" => "hero-1",
+                "tag" => "BOSON",
+                "titleLine1" => "Be Native",
+                "titleLine2" => "Stay [ PHP ]",
+                "subtitle" => "Turn your PHP project into cross-platform, compact, fast, native applications for Windows, Linux and macOS.",
+                "link" => "/about",
+                "backgroundImage" => "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
+                "backgroundImageMobile" => "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
+                "themeColor" => "#3E3E3E",
+                "buttonText" => "Discover Boson"
+            ],
+            [
+                "id" => "hero-2",
+                "tag" => "PERFORMANCE",
+                "titleLine1" => "Pure PHP",
+                "titleLine2" => "No Electron",
+                "subtitle" => "Our solution is based on simple, yet robust technologies that provide native performance and lightweight across all platforms.",
+                "link" => "/docs/latest/installation",
+                "backgroundImage" => "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+                "backgroundImageMobile" => "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+                "themeColor" => "#666666",
+                "buttonText" => "View Documentation"
+            ],
+            [
+                "id" => "hero-3",
+                "tag" => "COMMUNITY",
+                "titleLine1" => "Open Source",
+                "titleLine2" => "For Everyone",
+                "subtitle" => "Join our growing community of developers building the next generation of desktop apps.",
+                "link" => "/contact",
+                "backgroundImage" => "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop",
+                "backgroundImageMobile" => "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+                "themeColor" => "#1f478a",
+                "buttonText" => "Get Involved"
+            ]
+        ]) ?>' autoplay-interval="5000" show-navigation show-scroll-hint></horizontal-scroll-hero>
+    </div>
+</hero-layout>
 <?php $this->stop() ?>

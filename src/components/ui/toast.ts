@@ -121,7 +121,19 @@ export class BosonToast extends LitElement {
         }
     }
 
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this._timer) {
+            clearTimeout(this._timer);
+            this._timer = null;
+        }
+    }
+
     close() {
+        if (this._timer) {
+            clearTimeout(this._timer);
+            this._timer = null;
+        }
         this._visible = false;
         setTimeout(() => {
             this.dispatchEvent(new CustomEvent('closed', { bubbles: true, composed: true }));

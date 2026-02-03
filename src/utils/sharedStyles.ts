@@ -7,6 +7,14 @@ export const sharedStyles: CSSResult = css`
   /* Accessibility: default text contrast & focus */
   :host {
     color: var(--color-text);
+    /* Spacing variables */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
   }
 
   a, button {

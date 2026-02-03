@@ -3,9 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement('article-card')
 export class ArticleCard extends LitElement {
-  static properties = {
-    article: { type: Object }
-  };
+  @property({ type: Object })
+  article: any;
 
   static styles = css`
     :host {

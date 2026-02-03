@@ -1,12 +1,12 @@
 <?php
 $this->layout('layout::master', [
     'title' => 'Blog :: Boson',
-    'showHeader' => true,
-    'showFooter' => true,
-    'cssUrl' => $cssUrl ?? '/build/assets/app.css',
-    'jsUrl' => $jsUrl ?? '/build/assets/app.js',
-    'currentRoute' => $currentRoute ?? 'blog_index',
-    'blogCategories' => $blogCategories ?? [],
+    //'showHeader' => true,
+    //'showFooter' => true,
+    //'cssUrl' => $cssUrl ?? '/build/assets/app.css',
+    //'jsUrl' => $jsUrl ?? '/build/assets/app.js',
+    'currentRoute' => $currentRoute ?? 'blog.index',
+    //'blogCategories' => $blogCategories ?? [],
     // 'docsVersion' => $docsVersion ?? null,
     // 'docsCategories' => $docsCategories ?? [],
 ]);
@@ -32,49 +32,32 @@ $this->layout('layout::master', [
     </div>
 </boson-breadcrumbs>
 
-<boson-blog-layout>
-    <?php $currentRoute = $currentRoute ?? 'blog_index'; ?>
-    <?php $categories = $categories ?? []; ?>
+<?php
+$posts = [];
+foreach ($articles ?? [] as $article) {
+    // Basic defaults if methods don't exist
+    $posts[] = [
+        'id' => md5($article->getUri()),
+        'title' => $article->getTitle()->toString(),
+        'excerpt' => mb_substr(strip_tags($article->getContent()->toString()), 0, 150) . '...',
+        'author' => 'Boson Team',
+        'authorAvatar' => 'https://i.pravatar.cc/150?u=' . md5($article->getUri()),
+        'date' => $article->createdAt() ? $article->createdAt()->format('M d, Y') : date('M d, Y'),
+        'readTime' => '5 min read',
+        'category' => 'Updates',
+        'tags' => ['Tech', 'News'],
+        'image' => 'https://picsum.photos/seed/' . $article->getUri() . '/800/600',
+        'imageAlt' => $article->getTitle()->toString(),
+        'slug' => $article->getUri()
+    ];
+}
+?>
 
-    <?php if ($currentRoute === 'blog_index'): ?>
-        <strong slot="sidebar">All Blog Articles</strong>
-    <?php else: ?>
-        <a slot="sidebar" href="<?= $this->url('blog_index') ?>">All Blog Articles</a>
-    <?php endif; ?>
-
-    <?php foreach ($categories as $availableCategory): ?>
-        <?php $availableCategory = (string) $availableCategory; ?>
-        <?php if (isset($category) && $category === $availableCategory): ?>
-            <strong slot="sidebar"><?= $this->escapeHtml(ucfirst($availableCategory)) ?></strong>
-        <?php else: ?>
-            <a slot="sidebar" href="<?= $this->url('blog.category', ['category' => $availableCategory]) ?>">
-                <?= $this->escapeHtml(ucfirst($availableCategory)) ?>
-            </a>
-        <?php endif; ?>
-    <?php endforeach; ?>
-
-    <?php $articles = $articles ?? []; ?>
-    <?php $page = $page ?? 1; ?>
-
-    <?php $this->insert('boson::modules/blog/partials/articles-list', ['articles' => $articles]) ?>
-
-    <footer style="display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 2em;">
-        <span>
-            <?php if ($page > 1): ?>
-                <a style="float: left" href="<?= $this->url('blog_index', ['page' => 1]) ?>">&lt;&lt; first page</a>
-                <a style="float: left; margin-left: 16px;" href="<?= $this->url('blog_index', ['page' => $page - 1]) ?>">&lt; newer articles</a>
-            <?php endif; ?>
-        </span>
-
-        <span style="text-align: center"><?= $page ?> of 1</span>
-
-        <span>
-            <?php if ($page < 1): ?>
-                <a style="float: right" href="<?= $this->url('blog_index', ['page' => 1]) ?>">last page &gt;&gt;</a>
-                <a style="float: right; margin-right: 16px;" href="<?= $this->url('blog_index', ['page' => $page + 1]) ?>">older articles &gt;</a>
-            <?php endif; ?>
-        </span>
-    </footer>
-</boson-blog-layout>
+<blog-list-section
+    title=""
+    subtitle=""
+    base-url="<?= $this->url('blog.index') ?>" show-filters
+    posts='<?= json_encode($posts, JSON_HEX_APOS | JSON_HEX_QUOT) ?>'>
+</blog-list-section>
 
 <?php $this->stop() ?>

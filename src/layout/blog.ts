@@ -1,6 +1,6 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { sharedStyles } from '../utils/sharedStyles.js';
+import { sharedStyles } from '@/utils/sharedStyles.js';
 
 @customElement('boson-blog-layout')
 export class BlogLayout extends LitElement {

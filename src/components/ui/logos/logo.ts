@@ -1,5 +1,5 @@
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { css, html, LitElement, PropertyValues } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import { sharedStyles } from '@/utils/sharedStyles.js';
 
 @customElement('boson-logo')
@@ -148,7 +148,7 @@ export class BosonLogo extends LitElement {
         };
     }
 
-    firstUpdated(_changedProperties) {
+    firstUpdated(_changedProperties: PropertyValues) {
         this.createSquares();
         this.startAnimations();
         this.setupMouseTracking();
@@ -160,7 +160,7 @@ export class BosonLogo extends LitElement {
             this.updateContainerRect();
         });
 
-        const dotContainer = this.shadowRoot.querySelector('.dot-container');
+        const dotContainer = this.shadowRoot?.querySelector('.dot-container');
         if (dotContainer) {
             this.resizeObserver.observe(dotContainer);
         }
@@ -179,14 +179,14 @@ export class BosonLogo extends LitElement {
     }
 
     updateContainerRect() {
-        const container = this.shadowRoot.querySelector('.dot-container');
+        const container = this.shadowRoot?.querySelector('.dot-container');
         if (container) {
             this.containerRect = container.getBoundingClientRect();
         }
     }
 
     setupMouseTracking() {
-        const container = this.shadowRoot.querySelector('.container') as HTMLElement;
+        const container = this.shadowRoot?.querySelector('.container') as HTMLElement;
         if (!container) return;
 
         this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -199,7 +199,7 @@ export class BosonLogo extends LitElement {
     }
 
     removeMouseTracking() {
-        const container = this.shadowRoot.querySelector('.container') as HTMLElement;
+        const container = this.shadowRoot?.querySelector('.container') as HTMLElement;
         if (!container) return;
 
         container.removeEventListener('mousemove', this.handleMouseMove as EventListener);
@@ -251,7 +251,7 @@ export class BosonLogo extends LitElement {
     }
 
     resetSquaresToOriginal() {
-        this.squareData.forEach((data, index) => {
+        this.squareData.forEach((_, index) => {
             const square = this.squares[index];
             const currentTransform = square.style.transform;
 
@@ -404,7 +404,7 @@ export class BosonLogo extends LitElement {
                 square.classList.add('dimmed');
             }
 
-            const interval = setInterval(() => {
+            const interval = window.setInterval(() => {
                 if (Math.random() > 0.3) {
                     square.classList.toggle('dimmed');
                 }
@@ -421,8 +421,7 @@ export class BosonLogo extends LitElement {
                     <div class="dot-container"></div>
                 </div>
             </div>
-        </div>
-    `;
+        `;
     }
 }
 

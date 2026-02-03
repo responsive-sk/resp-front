@@ -4,6 +4,7 @@ console.log('=== APP START ===');
 import './components/ui/header';
 import './components/ui/footer';
 import './components/ui/button';
+import './components/ui/logos/logo';
 
 // Import layouts
 import './layout/landing';
@@ -19,7 +20,8 @@ import './components/sections/nativeness-section';
 import './components/sections/right-choice-section';
 import './components/sections/solves-section';
 import './components/sections/testimonials-section';
-//import './components/sections/docs-toc';
+import './components/sections/gallery-section';
+import './components/sections/hero-slider-section';
 
 // import './components/ui/dropdown';
 import './components/ui/breadcrumbs';
@@ -39,6 +41,11 @@ import './layout/landing';
 import './layout/default';
 // import './layout/docs';
 import './layout/search';
+import './components/sections/horizontal-scroll-hero';
+import './layout/hero-layout';
+import './components/fullscreen-hero';
+import './components/sections/blog-list-section';
+import './components/sections/article-detail-section';
 
 import { initPJAX } from './lib/pjax';
 import './app.css';
