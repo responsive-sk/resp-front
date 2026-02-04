@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   root: './src',
@@ -36,6 +37,9 @@ export default defineConfig({
 
     minify: 'esbuild',
     sourcemap: false,
+    plugins: [
+      visualizer({ open: true })
+    ],
   },
 
   // SPRÁVNE MIESTO PRE resolve.alias

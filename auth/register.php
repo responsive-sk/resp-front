@@ -72,6 +72,10 @@
         color: var(--admin-danger);
         border: 1px solid rgba(241, 65, 108, 0.2);
     }
+
+    .btn-submit:hover {
+        filter: brightness(1.1);
+    }
 </style>
 
 <div class="auth-container">
@@ -89,6 +93,7 @@
             <?php endif; ?>
 
             <form method="post" action="<?= $this->url('auth.register') ?>">
+                <?= $this->csrfField() ?>
                 
                 <mark-input label="Email" required>
                     <input type="email" name="email" value="<?= $this->escapeHtml($email ?? '') ?>" required placeholder="name@example.com">
@@ -103,9 +108,25 @@
                 </mark-input>
 
                 <div style="margin-top: 2rem;">
-                    <mark-button type="submit" variant="primary" style="width: 100%; justify-content: center; display: flex;">
+                    <button type="submit" class="btn-submit"
+                        style="width: 100%; 
+                               display: flex; 
+                               justify-content: center; 
+                               align-items: center;
+                               gap: 0.5rem;
+                               padding: 0.75rem 1.5rem;
+                               border-radius: 0.6rem;
+                               font-weight: 600;
+                               font-size: 0.9rem;
+                               cursor: pointer;
+                               border: none;
+                               background: #009ef7;
+                               color: white;
+                               font-family: inherit;
+                               line-height: normal;
+                               transition: filter 0.2s;">
                         Register
-                    </mark-button>
+                    </button>
                 </div>
             </form>
 

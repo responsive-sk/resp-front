@@ -7,21 +7,22 @@
  */
 
 $this->layout('layout::master', [
-    'title' => 'Search Documentation :: Boson',
-    'showHeader' => true,
-    'showFooter' => true,
+    'title' => 'Search index',
+    // 'showHeader' => true,
+    // 'showFooter' => true,
     'cssUrl' => $cssUrl ?? '/build/assets/app.css',
     'jsUrl' => $jsUrl ?? '/build/assets/app.js',
     'currentRoute' => 'search.index',
-    'blogCategories' => $blogCategories ?? [],
-    'docsVersion' => $docsVersion ?? null,
-    'docsCategories' => $docsCategories ?? [],
+    // 'blogCategories' => $blogCategories ?? [],
+    // 'docsVersion' => $docsVersion ?? null,
+    // 'docsCategories' => $docsCategories ?? [],
 ]);
 ?>
 
 <?php $this->start('main') ?>
 
 <boson-search-layout>
+    
     <boson-page-title>
         <h1>Search Documentation</h1>
     </boson-page-title>

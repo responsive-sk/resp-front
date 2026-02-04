@@ -15,8 +15,13 @@
     "@eslint/js": "^9.39.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/bun": "latest",
+    "@types/node": "^25.2.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
+    "@floating-ui/dom": "^1.7.5",
+    "agnosticui-core": "2.0.0-alpha.12",
+    "chart.js": "^4.5.1",
+    "focus-trap": "^8.0.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "jsdom": "^27.4.0",
@@ -24,12 +29,11 @@
     "mermaid": "^11.12.2",
     "prettier": "^3.8.1",
     "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vitest": "^0.34.6"
   },
   "dependencies": {
-    "chart.js": "^4.5.1",
-    "lit": "^3.3.2"
   }
 }

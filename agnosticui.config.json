@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agnosticui.com/schema.json",
+  "version": "2.0.0-alpha",
+  "framework": "lit",
+  "paths": {
+    "reference": "./agnosticui",
+    "components": "./src/components/ag"
+  },
+  "components": {
+    "Card": {
+      "added": "2026-02-04T10:58:40.905Z",
+      "version": "2.0.0-alpha",
+      "framework": "lit",
+      "files": [
+        "/home/evan/Desktop/02/ag/resp-front/src/components/ag/Card/core"
+      ]
+    }
+  },
+  "ai": {
+    "includeReference": true,
+    "includeContext": true,
+    "contextPath": "./agnosticui/docs"
+  },
+  "git": {
+    "commitReference": true
+  },
+  "tarball": {
+    "source": "/home/evan/Desktop/02/ag/resp-front/.tmp-ag-download/agnosticui-core-2.0.0-alpha.12.tgz",
+    "version": "2.0.0-alpha",
+    "installed": "2026-02-04T02:20:59.128Z"
+  }
+}
