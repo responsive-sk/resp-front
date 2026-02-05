@@ -35,28 +35,34 @@ $this->layout('layout::master', [
 <?php
 $posts = [];
 foreach ($articles ?? [] as $article) {
-    // Basic defaults if methods don't exist
+    // Handle array or object (backward compatibility if needed, but assuming array now)
+    $isObject = is_object($article);
+
+    $slug = $isObject ? $article->getUri() : ($article['slug'] ?? $article['id']);
+    $title = $isObject ? $article->getTitle()->toString() : $article['title'];
+    $content = $isObject ? $article->getContent()->toString() : $article['content'];
+    $dateStr = $isObject
+        ? ($article->createdAt() ? $article->createdAt()->format('M d, Y') : date('M d, Y'))
+        : date('M d, Y', strtotime($article['created_at']));
+
     $posts[] = [
-        'id' => md5($article->getUri()),
-        'title' => $article->getTitle()->toString(),
-        'excerpt' => mb_substr(strip_tags($article->getContent()->toString()), 0, 150) . '...',
+        'id' => md5($slug),
+        'title' => $title,
+        'excerpt' => mb_substr(strip_tags($content), 0, 150) . '...',
         'author' => 'Boson Team',
-        'authorAvatar' => 'https://i.pravatar.cc/150?u=' . md5($article->getUri()),
-        'date' => $article->createdAt() ? $article->createdAt()->format('M d, Y') : date('M d, Y'),
+        'authorAvatar' => 'https://i.pravatar.cc/150?u=' . md5($slug),
+        'date' => $dateStr,
         'readTime' => '5 min read',
         'category' => 'Updates',
         'tags' => ['Tech', 'News'],
-        'image' => 'https://picsum.photos/seed/' . $article->getUri() . '/800/600',
-        'imageAlt' => $article->getTitle()->toString(),
-        'slug' => $article->getUri()
+        'image' => 'https://picsum.photos/seed/' . $slug . '/800/600',
+        'imageAlt' => $title,
+        'slug' => $slug
     ];
 }
 ?>
 
-<blog-list-section
-    title=""
-    subtitle=""
-    base-url="<?= $this->url('blog.index') ?>" show-filters
+<blog-list-section title="" subtitle="" base-url="<?= $this->url('blog.index') ?>" show-filters
     posts='<?= json_encode($posts, JSON_HEX_APOS | JSON_HEX_QUOT) ?>'>
 </blog-list-section>
 

@@ -59,12 +59,18 @@ $this->layout('layout::master', [
         <?php endif; ?>
 
         <?php if (!empty($results)): ?>
-            <?php foreach ($results as $item): ?>
+            <?php foreach ($results as $item): 
+                // Compatibility for object vs array
+                $isObject = is_object($item);
+                $slug = $isObject ? $item->getUri() : ($item['slug'] ?? $item['id']);
+                $title = $isObject ? $item->getTitle()->toString() : $item['title'];
+                $content = $isObject ? $item->getContent()->toString() : $item['content'];
+            ?>
                 <article class="search-result">
                     <hgroup>
                         <h2>
-                            <a href="<?= $this->url('blog_show_slug', ['slug' => $item->getUri()]) ?>">
-                                <?= $this->escapeHtml($item->getTitle()->toString()) ?>
+                            <a href="<?= $this->url('blog.show.slug', ['slug' => $slug]) ?>">
+                                <?= $this->escapeHtml($title) ?>
                             </a>
                         </h2>
                     </hgroup>
@@ -72,8 +78,7 @@ $this->layout('layout::master', [
                     <p class="content-preview">
                         <?php
                         // Show first 200 characters of content
-                        $contentPreview = $item->getContent()->toString();
-                        $contentPreview = strip_tags($contentPreview);
+                        $contentPreview = strip_tags($content);
                         if (mb_strlen($contentPreview) > 200) {
                             $contentPreview = mb_substr($contentPreview, 0, 200) . '...';
                         }
