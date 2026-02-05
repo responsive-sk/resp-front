@@ -65,7 +65,7 @@
         </div>
 
         <div slot="blog">
-            <?php foreach ($blogCategories as $category): ?>
+            <?php foreach ($this->blogCategories() as $category): ?>
                 <boson-button type="ghost" inheader="true" slot="blog"
                     href="/blog/category/<?= $this->escapeHtml($category) ?>">
                     <?= $this->escapeHtml(ucfirst($category)) ?>

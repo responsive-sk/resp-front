@@ -1,0 +1,106 @@
+<?php
+/**
+ * @var string $error
+ */
+
+$this->layout('layout::master', [
+    'title' => 'Error 500 :: Boson',
+    'cssUrl' => '/build/assets/app.css',
+    'jsUrl' => '/build/assets/app.js',
+]);
+?>
+
+<?php $this->start('main') ?>
+
+<div class="error-page-container">
+    <div class="error-content">
+        <div class="error-icon">⚠️</div>
+
+        <h1 class="error-title">500</h1>
+
+        <h2 class="error-reason">Internal Server Error</h2>
+
+        <p class="error-message">
+            <?= $this->escapeHtml($error ?? 'An unexpected error occurred.') ?>
+        </p>
+
+        <div class="error-actions">
+            <boson-button href="/" variant="primary">
+                Back to Home
+            </boson-button>
+            <boson-button onclick="history.back()" variant="secondary">
+                Go Back
+            </boson-button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-page-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        padding: 2rem;
+        background: var(--color-bg, #0d1119);
+        color: var(--color-text, #ffffff);
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    .error-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .error-title {
+        font-size: 5rem;
+        font-weight: 800;
+        margin: 0;
+        line-height: 1;
+        background: linear-gradient(135deg, #ff5722 0%, #ff9800 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: var(--font-title, 'Roboto Condensed', sans-serif);
+    }
+
+    .error-reason {
+        font-size: 2rem;
+        font-weight: 300;
+        margin: 0.5rem 0 1.5rem;
+        color: var(--color-text-secondary, #a0aec0);
+    }
+
+    .error-message {
+        font-size: 1.1rem;
+        color: var(--color-text-secondary, #a0aec0);
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+</style>
+
+<?php $this->stop() ?>
