@@ -72,37 +72,6 @@ export class HeroLayout extends LitElement {
       z-index: 1;
     }
 
-    /* Footer */
-    .hero-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      color: rgba(255, 255, 255, 0.6);
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .social-link {
-      color: rgba(255, 255, 255, 0.6);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .social-link:hover {
-      color: white;
-    }
-
     @media (max-width: 768px) {
       .hero-header {
         padding: 16px 20px;
@@ -114,13 +83,6 @@ export class HeroLayout extends LitElement {
       
       .nav-links {
         gap: 16px;
-      }
-      
-      .hero-footer {
-        padding: 16px 20px;
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
       }
     }
   `;
@@ -138,16 +100,6 @@ export class HeroLayout extends LitElement {
         { label: 'About', href: '/about' },
         { label: 'Contact', href: '/contact' }
     ];
-
-    @property({ type: Array })
-    socialLinks = [
-        { label: 'Facebook', href: 'https://facebook.com' },
-        { label: 'Instagram', href: 'https://instagram.com' },
-        { label: 'LinkedIn', href: 'https://linkedin.com' }
-    ];
-
-    @property({ type: String })
-    copyright = '© 2024 Your Company. All rights reserved.';
 
     @state()
     private _isScrolled = false;
@@ -182,19 +134,6 @@ export class HeroLayout extends LitElement {
       <main class="hero-main">
         <slot></slot>
       </main>
-
-      <!-- Fixed Footer -->
-      <footer class="hero-footer">
-        <div class="copyright">${this.copyright}</div>
-        
-        <div class="social-links">
-          ${this.socialLinks.map((social: any) => html`
-            <a href="${social.href}" class="social-link" target="_blank" rel="noopener">
-              ${social.label}
-            </a>
-          `)}
-        </div>
-      </footer>
     `;
     }
 }

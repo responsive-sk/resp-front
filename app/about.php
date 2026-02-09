@@ -10,7 +10,7 @@
 
 <?php $this->start('main') ?>
 
-<boson-default-layout>
+<resp-default-layout>
     <boson-page-title>
         <h1>About Us</h1>
     </boson-page-title>
@@ -157,6 +157,6 @@
         </boson-button>
     </call-to-action-section>
 
-</boson-default-layout>
+</resp-default-layout>
 
 <?php $this->stop() ?>

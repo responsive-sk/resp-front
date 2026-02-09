@@ -32,27 +32,24 @@
             always open to new opportunities and collaborations.
         </p>
 
-        <div
-            style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-            <div
-                style="background: var(--color-bg-secondary); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
-                <h3 style="margin-top: 0;">Email Us</h3>
+        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <ag-card variant="info" rounded="lg">
+                <h3 slot="header" style="margin-top: 0;">Email Us</h3>
                 <p>
                     <a href="mailto:hello@boson-lab.com"
                         style="color: var(--color-primary); text-decoration: none; font-size: 1.1em;">hello@boson-lab.com</a>
                 </p>
                 <p style="color: var(--color-text-secondary);">For general inquiries and project proposals.</p>
-            </div>
+            </ag-card>
 
-            <div
-                style="background: var(--color-bg-secondary); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--color-border);">
-                <h3 style="margin-top: 0;">Join the Team</h3>
+            <ag-card variant="success" rounded="lg">
+                <h3 slot="header" style="margin-top: 0;">Join Team</h3>
                 <p>
                     <a href="mailto:careers@boson-lab.com"
                         style="color: var(--color-primary); text-decoration: none; font-size: 1.1em;">careers@boson-lab.com</a>
                 </p>
                 <p style="color: var(--color-text-secondary);">Talented developers are always welcome.</p>
-            </div>
+            </ag-card>
         </div>
 
         <h4 class="red">Ready to start?</h4>

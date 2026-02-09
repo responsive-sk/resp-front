@@ -1,13 +1,13 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-@customElement('resp-header')
-export class RespHeader extends LitElement {
+@customElement('home-header')
+export class HomeHeader extends LitElement {
   @property({ type: Boolean })
   isScrolled: boolean = false;
 
   @property({ type: Boolean })
-  isHomePage: boolean = false;
+  isHomePage: boolean = true;
 
   static styles = [
     css`
@@ -172,6 +172,13 @@ export class RespHeader extends LitElement {
     // Detekovať home page
     const isHome = window.location.pathname === '/' || window.location.pathname === '/home';
     this.isHomePage = isHome;
+    
+    // Pridať/odstrániť class na body pre scroll
+    if (isHome) {
+      document.body.classList.add('home-page-header');
+    } else {
+      document.body.classList.remove('home-page-header');
+    }
   }
 
   handleScroll(): void {
@@ -181,12 +188,12 @@ export class RespHeader extends LitElement {
 
   render() {
     const headerClasses = [
-      !this.isHomePage && this.isScrolled ? 'scrolled' : '',
+      this.isScrolled ? 'scrolled' : '',
       this.isHomePage ? 'home-page' : ''
     ].filter(Boolean).join(' ');
 
     return html`
-      <header class="${headerClasses}" hx-boost="true">
+      <header class="${this.isScrolled ? 'scrolled' : ''}" hx-boost="true">
         <div class="dots">
           <dots-container></dots-container>
         </div>
@@ -213,6 +220,6 @@ export class RespHeader extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'resp-header': RespHeader;
+    'home-header': HomeHeader;
   }
 }

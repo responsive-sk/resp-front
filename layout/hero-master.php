@@ -35,11 +35,13 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     </title>
     <meta name="description"
         content="<?= $this->e($metaDescription ?? 'Turn your PHP project into cross-platform, compact, fast, native applications.') ?>">
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=customElements"></script> -->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!-- <link rel="preload" as="image" href="/images/logo.svg"> -->
+    <!-- <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin> -->
 
-    <link rel="preload" as="image" href="/images/logo.svg">
-    <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-
-    <link rel="stylesheet" href="/build/assets/app.css">
+    <link rel="stylesheet" href="/assets/app.css">
 
     <style>
         body.layout-hero-master {
@@ -57,7 +59,7 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     <!-- Hero content is expected to handle its own layout/header/footer -->
     <?= $this->section('hero-content') ?>
 
-    <script type="module" src="/build/assets/app.js"></script>
+    <script type="module" src="/assets/app.js"></script>
 </body>
 
 </html>

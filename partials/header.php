@@ -1,4 +1,4 @@
-<boson-header>
+<resp-header>
 
     <boson-button class="logo"
                   type="ghost"
@@ -7,7 +7,7 @@
 
         <img class="logo"
              src="/images/logo.svg"
-             alt="responsive.sk logo"
+             alt="responsive.sk development"
              width="255"
              height="100"
              fetchpriority="high">
@@ -90,4 +90,4 @@
 
     </mobile-header-menu>
 
-</boson-header>
+</resp-header>

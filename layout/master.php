@@ -1,6 +1,6 @@
 <?php
 // ÚPLNÝ ZAČIATOK layout/master.php
-header('Vary: X-PJAX');
+header('Vary: X-PJAX, HX-Request');
 
 if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     // Get the title - musíme získať title z dát
@@ -22,6 +22,16 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     ]);
     exit;
 }
+
+if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+    // HTMX request - vrátiť len content
+    error_log('HTMX request detected: ' . $_SERVER['REQUEST_URI']);
+    header('Content-Type: text/html');
+    header('HX-Trigger: afterSwap');
+    
+    echo $this->section('main');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,50 +45,13 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
         <?= $this->e($pageTitle ?? 'Responsive PHP') ?>
     </title>
     <meta name="description" content="<?= $this->e($metaDescription ?? 'PHP desktop apps') ?>">
-
-    <link rel="preload" as="image" href="/images/logo.svg">
-    <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-
-    <!-- <style>
-        .pjax-loading main {
-            opacity: 0.7;
-            transition: opacity 0.2s ease;
-        }
-
-        .pjax-loading-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #FF5722 0%, #3498db 50%, #FF5722 100%);
-            background-size: 200% 100%;
-            animation: pjax-loading 1.5s ease infinite;
-            z-index: 9999;
-            display: none;
-        }
-
-        .pjax-loading .pjax-loading-indicator {
-            display: block;
-        }
-
-        @keyframes pjax-loading {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-    </style> -->
-
-    <link rel="stylesheet" href="/build/assets/app.css">
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=customElements"></script> -->
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/assets/app.css">
 </head>
 
 <body>
-    <!-- <div class="pjax-loading-indicator"></div> -->
-
     <?php if (!isset($showHeader) || $showHeader): ?>
         <?php $this->insert('partials::header') ?>
     <?php endif; ?>
@@ -93,7 +66,7 @@ if (isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true') {
     <?php endif; ?>
 
     <!-- JEDINÝ SCRIPT -->
-    <script type="module" src="/build/assets/app.js"></script>
+    <script type="module" src="/assets/app.js"></script>
 </body>
 
 </html>

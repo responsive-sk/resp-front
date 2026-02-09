@@ -1,0 +1,184 @@
+/* resp-front/src/styles/mark.css */
+
+:root {
+  /* Mark Design System - Dark Theme */
+  --mark-primary-50: #f0f9ff;
+  --mark-primary-100: #e0f2fe;
+  --mark-primary-200: #bae6fd;
+  --mark-primary-300: #7dd3fc;
+  --mark-primary-400: #38bdf8;
+  --mark-primary-500: #0ea5e9;
+  --mark-primary-600: #0284c7;
+  --mark-primary-700: #0369a1;
+  --mark-primary-800: #075985;
+  --mark-primary-900: #0c4a6e;
+
+  --mark-success-50: #f0fdf4;
+  --mark-success-100: #dcfce7;
+  --mark-success-200: #bbf7d0;
+  --mark-success-300: #86efac;
+  --mark-success-400: #4ade80;
+  --mark-success-500: #22c55e;
+  --mark-success-600: #16a34a;
+  --mark-success-700: #15803d;
+  --mark-success-800: #166534;
+  --mark-success-900: #14532d;
+
+  --mark-warning-50: #fffbeb;
+  --mark-warning-100: #fef3c7;
+  --mark-warning-200: #fde68a;
+  --mark-warning-300: #fcd34d;
+  --mark-warning-400: #fbbf24;
+  --mark-warning-500: #f59e0b;
+  --mark-warning-600: #d97706;
+  --mark-warning-700: #b45309;
+  --mark-warning-800: #92400e;
+  --mark-warning-900: #78350f;
+
+  --mark-danger-50: #fef2f2;
+  --mark-danger-100: #fee2e2;
+  --mark-danger-200: #fecaca;
+  --mark-danger-300: #fca5a5;
+  --mark-danger-400: #f87171;
+  --mark-danger-500: #ef4444;
+  --mark-danger-600: #dc2626;
+  --mark-danger-700: #b91c1c;
+  --mark-danger-800: #991b1b;
+  --mark-danger-900: #7f1d1d;
+
+  /* Neutral colors for dark theme */
+  --mark-neutral-0: #0f172a;
+  --mark-neutral-50: #1e293b;
+  --mark-neutral-100: #334155;
+  --mark-neutral-200: #475569;
+  --mark-neutral-300: #64748b;
+  --mark-neutral-400: #94a3b8;
+  --mark-neutral-500: #cbd5e1;
+  --mark-neutral-600: #e2e8f0;
+  --mark-neutral-700: #f1f5f9;
+  --mark-neutral-800: #f8fafc;
+  --mark-neutral-900: #ffffff;
+
+  /* Spacing */
+  --mark-spacing-xs: 0.25rem;
+  --mark-spacing-sm: 0.5rem;
+  --mark-spacing-md: 1rem;
+  --mark-spacing-lg: 1.5rem;
+  --mark-spacing-xl: 2rem;
+  --mark-spacing-2xl: 3rem;
+
+  /* Typography */
+  --mark-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mark-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Shadows */
+  --mark-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --mark-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --mark-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --mark-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --mark-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Border radius */
+  --mark-radius-sm: 0.25rem;
+  --mark-radius: 0.5rem;
+  --mark-radius-md: 0.75rem;
+  --mark-radius-lg: 1rem;
+  --mark-radius-xl: 1.5rem;
+  --mark-radius-full: 9999px;
+
+  /* Transitions */
+  --mark-transition-fast: 150ms ease;
+  --mark-transition: 250ms ease;
+  --mark-transition-slow: 350ms ease;
+}
+
+/* Base styles */
+.mark-theme-dark {
+  color-scheme: dark;
+
+  --sl-color-primary-50: var(--mark-primary-50);
+  --sl-color-primary-100: var(--mark-primary-100);
+  --sl-color-primary-200: var(--mark-primary-200);
+  --sl-color-primary-300: var(--mark-primary-300);
+  --sl-color-primary-400: var(--mark-primary-400);
+  --sl-color-primary-500: var(--mark-primary-500);
+  --sl-color-primary-600: var(--mark-primary-600);
+  --sl-color-primary-700: var(--mark-primary-700);
+  --sl-color-primary-800: var(--mark-primary-800);
+  --sl-color-primary-900: var(--mark-primary-900);
+
+  --sl-color-neutral-0: var(--mark-neutral-0);
+  --sl-color-neutral-50: var(--mark-neutral-50);
+  --sl-color-neutral-100: var(--mark-neutral-100);
+  --sl-color-neutral-200: var(--mark-neutral-200);
+  --sl-color-neutral-300: var(--mark-neutral-300);
+  --sl-color-neutral-400: var(--mark-neutral-400);
+  --sl-color-neutral-500: var(--mark-neutral-500);
+  --sl-color-neutral-600: var(--mark-neutral-600);
+  --sl-color-neutral-700: var(--mark-neutral-700);
+  --sl-color-neutral-800: var(--mark-neutral-800);
+  --sl-color-neutral-900: var(--mark-neutral-900);
+
+  --sl-border-radius-small: var(--mark-radius-sm);
+  --sl-border-radius-medium: var(--mark-radius);
+  --sl-border-radius-large: var(--mark-radius-lg);
+  --sl-border-radius-x-large: var(--mark-radius-xl);
+
+  --sl-transition-fast: var(--mark-transition-fast);
+  --sl-transition-medium: var(--mark-transition);
+  --sl-transition-slow: var(--mark-transition-slow);
+
+  background: var(--mark-neutral-0);
+  color: var(--mark-neutral-900);
+  font-family: var(--mark-font-sans);
+}
+
+/* Utility classes */
+.mark-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--mark-spacing-md);
+}
+
+.mark-grid {
+  display: grid;
+  gap: var(--mark-spacing-lg);
+}
+
+.mark-flex {
+  display: flex;
+  gap: var(--mark-spacing-md);
+}
+
+.mark-flex-col {
+  flex-direction: column;
+}
+
+.mark-items-center {
+  align-items: center;
+}
+
+.mark-justify-between {
+  justify-content: space-between;
+}
+
+/* Scrollbar styling */
+.mark-theme-dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.mark-theme-dark ::-webkit-scrollbar-track {
+  background: var(--mark-neutral-100);
+  border-radius: var(--mark-radius);
+}
+
+.mark-theme-dark ::-webkit-scrollbar-thumb {
+  background: var(--mark-neutral-300);
+  border-radius: var(--mark-radius);
+}
+
+.mark-theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--mark-neutral-400);
+}

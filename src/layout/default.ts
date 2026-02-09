@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-@customElement('boson-default-layout')
+@customElement('resp-default-layout')
 export class DefaultLayout extends LitElement {
   static styles = [
     css`
@@ -21,6 +21,6 @@ export class DefaultLayout extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'boson-default-layout': DefaultLayout;
+    'resp-default-layout': DefaultLayout;
   }
 }

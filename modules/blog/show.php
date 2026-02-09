@@ -1,11 +1,11 @@
 <?php $this->layout('layout::master', [
     'title' => $article->getTitle()->toString() . ' :: Boson',
-    //'showHeader' => true,
-    //'showFooter' => true,
-    //'cssUrl' => $cssUrl ?? '/build/assets/app.css',
-    //'jsUrl' => $jsUrl ?? '/build/assets/app.js',
+    'showHeader' => true,
+    'showFooter' => true,
+    'cssUrl' => $cssUrl ?? '/build/assets/app.css',
+    'jsUrl' => $jsUrl ?? '/build/assets/app.js',
     'currentRoute' => 'blog.show.slug',
-    //'blogCategories' => $blogCategories ?? [],
+    'blogCategories' => $blogCategories ?? [],
     //'docsVersion' => $docsVersion ?? null,
     //'docsCategories' => $docsCategories ?? [],
 ]);

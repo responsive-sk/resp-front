@@ -558,6 +558,7 @@ export class BlogListSection extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
+        console.log('BlogListSection: connected, posts:', this.posts);
         this._extractCategories();
     }
 
@@ -678,7 +679,7 @@ export class BlogListSection extends LitElement {
           </div>
           
           <h3 class="card-title">
-            <a href="/blog/${post.slug}" class="link--none" data-pjax>
+            <a href="/blog/${post.slug}" class="link--none">
               ${post.title}
             </a>
           </h3>
@@ -703,7 +704,7 @@ export class BlogListSection extends LitElement {
               ` : ''}
             </div>
             
-            <a href="/blog/${post.slug}" class="read-more" data-pjax>
+            <a href="/blog/${post.slug}" class="read-more">
               Read More
               <span class="read-more-icon">→</span>
             </a>
@@ -717,8 +718,10 @@ export class BlogListSection extends LitElement {
         const displayPosts = this.showPagination ? this.paginatedPosts : this.filteredPosts;
         const isLoading = this._isLoading;
 
+        console.log('BlogListSection: render, displayPosts:', displayPosts.length, 'isLoading:', isLoading);
+
         return html`
-      <section class="blog-section">
+      <section class="blog-section" hx-boost="true">
         <!-- Section Header -->
         <header class="section-header">
           <h2 class="section-title">${this.title}</h2>

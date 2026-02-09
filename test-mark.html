@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mark Dashboard Test</title>
+    <link rel="stylesheet" href="/assets/mark/mark.css" />
+    <link rel="stylesheet" href="/assets/vendor-shoelace.css" />
+  </head>
+  <body class="mark-theme-dark">
+    <div id="app">
+      <h1>Mark Dashboard Test</h1>
+      <p>Testing basic functionality...</p>
+
+      <!-- Test Shoelace components -->
+      <sl-card>
+        <div slot="header">Test Card</div>
+        <p>This is a test card with Shoelace components.</p>
+        <sl-button variant="primary">Test Button</sl-button>
+        <sl-badge variant="success">Success</sl-badge>
+      </sl-card>
+
+      <!-- Test Mark Dashboard Component -->
+      <mark-dashboard></mark-dashboard>
+    </div>
+
+    <!-- Load scripts -->
+    <script type="module" src="/assets/mark/mark.js"></script>
+    <script type="module" src="/assets/mark/components/mark-components.js"></script>
+    <script type="module" src="/assets/chunks/vendor-shoelace-BbkV3zse.js"></script>
+    <script type="module" src="/assets/chunks/vendor-lit-8sBzbjSy.js"></script>
+
+    <script>
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('Mark dashboard test page loaded')
+
+        // Test that components are available
+        if (customElements.get('mark-dashboard')) {
+          console.log('✅ Mark dashboard component loaded')
+        } else {
+          console.error('❌ Mark dashboard component not found')
+        }
+
+        if (customElements.get('sl-button')) {
+          console.log('✅ Shoelace button loaded')
+        } else {
+          console.error('❌ Shoelace button not found')
+        }
+      })
+    </script>
+  </body>
+</html>

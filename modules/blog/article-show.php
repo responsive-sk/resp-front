@@ -7,40 +7,39 @@
 // Compatibility layer
 $isObject = is_object($article);
 
-$title = $isObject ? $article->title()->toString() : $article['title'];
-$content = $isObject ? $article->content()->toString() : $article['content'];
-// Extract excerpt from content for string access if method doesn't exist
-$excerpt = $isObject
-    ? $article->content()->excerpt(160)
-    : mb_substr(strip_tags($content), 0, 160) . '...';
-
-$slug = $isObject
-    ? ($article->slug() ? $article->slug()->toString() : '')
-    : ($article['slug'] ?? '');
-
-$id = $isObject
-    ? ($article->id() ? (string) $article->id()->toInt() : '')
-    : (string) ($article['id'] ?? '');
-
-$status = $isObject ? $article->status()->toString() : ($article['status'] ?? 'draft');
-
-$createdAt = $isObject
-    ? $article->createdAt()->format('Y-m-d')
-    : date('Y-m-d', strtotime($article['created_at']));
-
-$updatedAt = $isObject
-    ? ($article->updatedAt() ? $article->updatedAt()->format('Y-m-d') : null)
-    : ($article['updated_at'] ? date('Y-m-d', strtotime($article['updated_at'])) : null);
+if ($isObject) {
+    // Use new DDD structure with toArray() method
+    $articleData = $article->toArray();
+    $title = $articleData['title'];
+    $content = $articleData['content'];
+    $excerpt = $articleData['excerpt'];
+    $slug = $articleData['slug'];
+    $id = $articleData['id'];
+    $status = $articleData['status'];
+    $createdAt = $articleData['created_at'];
+    $updatedAt = $articleData['updated_at'];
+} else {
+    // Fallback for old array structure
+    $title = $article['title'];
+    $content = $article['content'];
+    $excerpt = mb_substr(strip_tags($content), 0, 160) . '...';
+    $slug = $article['slug'] ?? '';
+    $id = (string) ($article['id'] ?? '');
+    $status = $article['status'] ?? 'draft';
+    $createdAt = date('Y-m-d', strtotime($article['created_at']));
+    $updatedAt = $article['updated_at'] ? date('Y-m-d', strtotime($article['updated_at'])) : null;
+}
 
 
 $this->layout('layout::master', [
-    'title' => $title . ' - ChubbyBlog',
+    'title' => $title,
     'description' => $excerpt,
     'showHeader' => true,
     'showFooter' => true,
     'cssUrl' => '/build/assets/app.css',
     'jsUrl' => '/build/assets/app.js',
     'currentRoute' => 'blog.show.slug',
+    'isPjax' => isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true'
 ]);
 
 // Get related articles (you need to implement this in your repository)
@@ -48,6 +47,8 @@ $relatedArticles = $relatedArticles ?? []; // Replace with actual related articl
 ?>
 
 <?php $this->start('main') ?>
+
+<div id="pjax-container" data-pjax-container>
 
 <boson-page-title>
     <h1><?= $this->escapeHtml($title) ?></h1>
@@ -81,29 +82,9 @@ $relatedArticles = $relatedArticles ?? []; // Replace with actual related articl
     'slug' => $slug,
     'status' => $status,
     'createdAt' => $createdAt,
-    'updatedAt' => $updatedAt,
-    'featuredImage' => 'https://picsum.photos/seed/' . ($id ?: '1') . '/1200/600', // Placeholder
-    'featuredImageAlt' => $title,
-    'author' => [
-        'name' => 'Boson Team', // Placeholder
-        'avatar' => 'https://i.pravatar.cc/150?u=' . ($id ?: '1'), // Placeholder
-        'role' => 'Core Contributors' // Placeholder
-    ],
-    'meta' => [
-        'views' => 1234, // Placeholder
-        'likes' => 42  // Placeholder
-    ],
-    'relatedArticles' => array_map(function ($related) {
-        // Assume related might still be object for now or array? Leaving as object assumption or simple fallback
-        $rIsObj = is_object($related);
-        return [
-            'id' => $rIsObj ? (string) $related->id()->toInt() : ($related['id'] ?? ''),
-            'title' => $rIsObj ? $related->title()->toString() : ($related['title'] ?? ''),
-            'excerpt' => $rIsObj ? $related->content()->excerpt(100) : mb_substr(strip_tags($related['content'] ?? ''), 0, 100),
-            'slug' => $rIsObj ? $related->slug()->toString() : ($related['slug'] ?? ''),
-            'createdAt' => $rIsObj ? $related->createdAt()->format('Y-m-d') : date('Y-m-d', strtotime($related['created_at'] ?? 'now'))
-        ];
-    }, $relatedArticles)
+    'updatedAt' => $updatedAt
 ], JSON_HEX_APOS | JSON_HEX_QUOT) ?>' show-author show-related show-actions></article-detail-section>
+
+</div> <!-- pjax-container -->
 
 <?php $this->stop() ?>

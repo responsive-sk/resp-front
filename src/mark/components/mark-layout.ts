@@ -1,92 +1,62 @@
-import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { LitElement, html, css } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
 
 @customElement('mark-layout')
 export class MarkLayout extends LitElement {
-    static styles = css`
+  @property({ type: String }) title = 'Mark Dashboard'
+  @property({ type: String }) activeMenu = 'dashboard'
+
+  static styles = css`
     :host {
       display: block;
+      --sl-color-primary-50: #f0f9ff;
+      --sl-color-primary-100: #e0f2fe;
+      --sl-color-primary-200: #bae6fd;
+      --sl-color-primary-300: #7dd3fc;
+      --sl-color-primary-400: #38bdf8;
+      --sl-color-primary-500: #0ea5e9;
+      --sl-color-primary-600: #0284c7;
+      --sl-color-primary-700: #0369a1;
+      --sl-color-primary-800: #075985;
+      --sl-color-primary-900: #0c4a6e;
+
+      /* Dark theme as default */
+      --sl-color-neutral-0: #0f172a;
+      --sl-color-neutral-50: #1e293b;
+      --sl-color-neutral-100: #334155;
+      --sl-color-neutral-200: #475569;
+      --sl-color-neutral-300: #64748b;
+      --sl-color-neutral-400: #94a3b8;
+      --sl-color-neutral-500: #cbd5e1;
+      --sl-color-neutral-600: #e2e8f0;
+      --sl-color-neutral-700: #f1f5f9;
+      --sl-color-neutral-800: #f8fafc;
+      --sl-color-neutral-900: #ffffff;
+
+      color-scheme: dark;
+    }
+
+    .layout {
       min-height: 100vh;
-      background-color: var(--admin-bg, #151521);
-      color: var(--admin-text-primary, #ffffff);
-      font-family: 'Inter', sans-serif;
+      background: var(--sl-color-neutral-0);
+      color: var(--sl-color-neutral-900);
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
     }
+  `
 
-    .layout-container {
-      display: flex;
-      min-height: 100vh;
-    }
+  connectedCallback() {
+    super.connectedCallback()
+    // Set dark theme by default
+    document.documentElement.setAttribute('data-theme', 'dark')
+  }
 
-    /* Sidebar Area */
-    .sidebar-area {
-      width: var(--admin-sidebar-width-desktop, 280px);
-      background-color: var(--admin-sidebar-bg, #1e1e2d);
-      flex-shrink: 0;
-      position: fixed;
-      height: 100vh;
-      left: 0;
-      top: 0;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Main Content Area */
-    .main-area {
-      flex: 1;
-      margin-left: var(--admin-sidebar-width-desktop, 280px);
-      display: flex;
-      flex-direction: column;
-      width: calc(100% - var(--admin-sidebar-width-desktop, 280px));
-      transition: margin-left 0.3s ease, width 0.3s ease;
-    }
-
-    /* Header Area */
-    .header-area {
-      height: var(--admin-header-height, 70px);
-      background: var(--admin-card-bg, #1e1e2d);
-      border-bottom: 1px solid var(--admin-border-color, #2b2b40);
-      position: sticky;
-      top: 0;
-      z-index: 900;
-    }
-
-    /* Content Area */
-    .content-area {
-      padding: 2rem;
-      flex: 1;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar-area {
-        transform: translateX(-100%);
-      }
-
-      .main-area {
-        margin-left: 0;
-        width: 100%;
-      }
-    }
-  `;
-
-    render() {
-        return html`
-      <div class="layout-container">
-        <aside class="sidebar-area">
-          <slot name="sidebar"></slot>
-        </aside>
-        
-        <div class="main-area">
-          <header class="header-area">
-            <slot name="header"></slot>
-          </header>
-          
-          <main class="content-area">
-            <slot></slot>
-          </main>
-        </div>
+  render() {
+    return html`
+      <div class="layout">
+        <slot></slot>
       </div>
-    `;
-    }
+    `
+  }
 }

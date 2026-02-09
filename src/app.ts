@@ -1,10 +1,53 @@
-//import mermaid from 'mermaid';
+// Type declaration
+export {}; // Toto spraví súbor modulom
+
+import './types/htmx.d.ts';
+
+declare global {
+    interface Window {
+        PJAX_LOADED?: boolean;
+        SIMPLE_AJAX_LOADED?: boolean;
+        HTMX_LOADED?: boolean;
+        reinitializeComponents?: () => void;
+        initPJAX?: () => void;
+    }
+}
+
 console.log('=== APP START ===');
-// Import core components only
-import './components/ui/header';
-import './components/ui/footer';
-import './components/ui/button';
-import './components/ui/logos/logo';
+
+console.log('HTMX loaded:', !!window.htmx);
+
+if (window.htmx) {
+  // Konfigurace
+  window.htmx.config.includeIndicatorStyles = false;
+  window.htmx.config.indicatorClass = 'htmx-indicator';
+  window.htmx.config.requestClass = 'htmx-request';
+  
+  // Event listeners
+  document.addEventListener('htmx:afterSwap', (event: any) => {
+    console.log('HTMX swapped content:', event.detail.pathInfo?.requestPath);
+    
+    // Reinitialize any custom components after swap
+    if (window.reinitializeComponents) {
+      window.reinitializeComponents();
+    }
+  });
+  
+  document.addEventListener('htmx:beforeRequest', (event: any) => {
+    console.log('HTMX: Request to', event.detail.pathInfo?.requestPath);
+  });
+  
+  document.addEventListener('htmx:afterRequest', (event: any) => {
+    console.log('HTMX: Request completed', event.detail.successful);
+  });
+  
+  // Automaticky boost všechny odkazy a formuláře
+  document.body.setAttribute('hx-boost', 'true');
+  
+  console.log('HTMX initialized successfully');
+} else {
+  console.warn('HTMX not found!');
+}
 
 // Import layouts
 import './layout/landing';
@@ -47,39 +90,15 @@ import './components/fullscreen-hero';
 import './components/sections/blog-list-section';
 import './components/sections/article-detail-section';
 
-import { initPJAX } from './lib/pjax';
+// Import AG components
+import './components/ag/Card/core/Card';
+
+// Rest of your imports...
 import './app.css';
 
-// Debug global state
-console.log('PJAX_LOADED before:', window.PJAX_LOADED);
-
-function startApp() {
-    console.log('Starting app...');
-
-    try {
-        initPJAX();
-        console.log('PJAX initialized');
-        console.log('PJAX_LOADED after:', window.PJAX_LOADED);
-    } catch (error) {
-        console.error('App failed:', error);
-        console.trace(); // Stack trace
-    }
+// PJAX integrace pokud existuje
+if (window.initPJAX) {
+  window.initPJAX();
 }
 
-// Type declaration
-declare global {
-    interface Window {
-        PJAX_LOADED?: boolean;
-    }
-}
-
-// Start
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM loaded, starting app');
-        startApp();
-    });
-} else {
-    console.log('DOM already ready, starting app');
-    startApp();
-}
+console.log('App fully loaded');

@@ -4,7 +4,7 @@
     'showFooter' => false,
     'cssUrl' => '/build/assets/app.css', // Keep app.css for fonts/reset
     'jsUrl' => '/build/assets/mark.js',   // Use Mark JS for components
-    'currentRoute' => 'auth.register',
+    'currentRoute' => 'auth.register.form', // Assuming this is the route name for the register form
 ]) ?>
 
 <?php $this->start('main') ?>
@@ -20,7 +20,7 @@
         --admin-input-bg: #151521;
         --admin-danger: #f1416c;
         --admin-success: #50cd89;
-        
+
         /* Auth specific overrides */
         --auth-bg: var(--admin-bg);
     }
@@ -66,7 +66,7 @@
         font-size: 0.9rem;
         font-weight: 500;
     }
-    
+
     .alert-error {
         background: rgba(241, 65, 108, 0.1);
         color: var(--admin-danger);
@@ -81,7 +81,7 @@
 <div class="auth-container">
     <div class="auth-header">
         <a href="/" class="auth-logo">MARK PANEL</a>
-        <div class="auth-subtitle">Create your account to get started</div>
+        <div class="auth-subtitle">Create your account to manage your content</div>
     </div>
 
     <mark-card>
@@ -94,17 +94,23 @@
 
             <form method="post" action="<?= $this->url('auth.register') ?>">
                 <?= $this->csrfField() ?>
-                
+
+                <mark-input label="Name" required>
+                    <input type="text" name="name" value="<?= $this->escapeHtml($name ?? '') ?>" required
+                        placeholder="Your Name">
+                </mark-input>
+
                 <mark-input label="Email" required>
-                    <input type="email" name="email" value="<?= $this->escapeHtml($email ?? '') ?>" required placeholder="name@example.com">
+                    <input type="email" name="email" value="<?= $this->escapeHtml($email ?? '') ?>" required
+                        placeholder="name@example.com">
                 </mark-input>
 
                 <mark-input label="Password" required>
-                    <input type="password" name="password" required placeholder="Create a password">
+                    <input type="password" name="password" required placeholder="Enter your password">
                 </mark-input>
-
+                
                 <mark-input label="Confirm Password" required>
-                    <input type="password" name="confirm_password" required placeholder="Confirm your password">
+                    <input type="password" name="password_confirm" required placeholder="Confirm your password">
                 </mark-input>
 
                 <div style="margin-top: 2rem;">
@@ -131,8 +137,9 @@
             </form>
 
             <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--admin-text-secondary);">
-                Already have an account? 
-                <a href="<?= $this->url('auth.login.form') ?>" style="color: #009ef7; text-decoration: none; font-weight: 600;">Sign In</a>
+                Already have an account?
+                <a href="<?= $this->url('auth.login.form') ?>"
+                    style="color: #009ef7; text-decoration: none; font-weight: 600;">Sign In</a>
             </div>
         </div>
     </mark-card>

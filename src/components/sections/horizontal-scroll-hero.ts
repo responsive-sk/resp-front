@@ -1,7 +1,6 @@
 // src/components/sections/horizontal-scroll-hero.ts
 import { html, css, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 export interface HorizontalSlide {
@@ -297,49 +296,6 @@ export class HorizontalScrollHero extends LitElement {
       transition: width 0.3s ease;
     }
 
-    /* Navigation arrows */
-    .nav-arrow {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 100;
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .nav-arrow.visible {
-      opacity: 0.8;
-      pointer-events: all;
-    }
-
-    .nav-arrow:hover {
-      background: rgba(255, 87, 34, 0.2);
-      border-color: rgba(255, 87, 34, 0.4);
-      transform: translateY(-50%) scale(1.1);
-      opacity: 1;
-    }
-
-    .nav-prev {
-      left: 40px;
-    }
-
-    .nav-next {
-      right: 40px;
-    }
-
     /* Slide counter */
     .slide-counter {
       position: fixed;
@@ -365,20 +321,6 @@ export class HorizontalScrollHero extends LitElement {
     @media (max-width: 768px) {
       .slide-content {
         padding: 0 5%;
-      }
-
-      .nav-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-      }
-
-      .nav-prev {
-        left: 20px;
-      }
-
-      .nav-next {
-        right: 20px;
       }
 
       .slide-counter {
@@ -437,13 +379,20 @@ export class HorizontalScrollHero extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         // Prevent body scroll
-        document.body.style.overflow = 'hidden';
+        if (this._container) {
+            this._container.style.overflow = 'hidden';
+        }
+        // document.body.style.overflow = 'hidden'; // ODSTRÁNIŤ - neblokovať vertikálny scroll
     }
 
     disconnectedCallback() {
         this._stopAutoplay();
         this._cleanupEventListeners();
-        document.body.style.overflow = '';
+        // Restore body scroll
+        if (this._container) {
+            this._container.style.overflow = '';
+        }
+        // document.body.style.overflow = ''; // ODSTRÁNIŤ - neblokovať vertikálny scroll
         super.disconnectedCallback();
     }
 
@@ -689,24 +638,6 @@ export class HorizontalScrollHero extends LitElement {
             this.renderSlide(slide, index)
         )}
         </div>
-        
-        <!-- Navigation arrows -->
-        ${this.showNavigation && this.slides.length > 1 ? html`
-          <button 
-            class="nav-arrow nav-prev ${this._currentSlide > 0 ? 'visible' : ''}"
-            @click=${this._prevSlide}
-            aria-label="Previous slide"
-          >
-            ←
-          </button>
-          <button 
-            class="nav-arrow nav-next ${this._currentSlide < this.slides.length - 1 ? 'visible' : ''}"
-            @click=${this._nextSlide}
-            aria-label="Next slide"
-          >
-            →
-          </button>
-        ` : ''}
         
         <!-- Scroll hint -->
         ${this.showScrollHint && this.slides.length > 1 ? html`

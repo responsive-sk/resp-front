@@ -538,7 +538,9 @@ export class ArticleDetailSection extends LitElement {
         <a 
           href="/blog" 
           class="action-btn"
-          data-pjax
+          hx-get="/blog"
+          hx-target="#pjax-container"
+          hx-push-url="true"
         >
           ← Back to Blog
         </a>

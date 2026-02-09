@@ -1,21 +1,19 @@
-<?php
-// app/home.php - Complete Rewrite
-$this->layout('layout::hero-master', [
-    'title' => 'Home - Boson',
-    'useHeroLayout' => true
-]);
-?>
+<?php $this->layout('layout::hero', [
+    'title' => $title,
+    'showHeader' => true,
+    'showFooter' => false,
+    'cssUrl' => '/build/assets/app.css',
+    'jsUrl' => '/build/assets/app.js',
+    'currentRoute' => 'home',
+    'isPjax' => isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true'
+]) ?>
 
-<?php $this->start('hero-content') ?>
-<hero-layout logo-text="BOSON" logo-link="/" navigation='<?= json_encode([
-    ['label' => 'Docs', 'href' => '/docs/latest'],
-    ['label' => 'About', 'href' => '/about'],
-    ['label' => 'Contact', 'href' => '/contact']
-]) ?>' social-links='<?= json_encode([
-     ['label' => 'GitHub', 'href' => 'https://github.com/boson-lab'],
-     ['label' => 'Twitter', 'href' => 'https://twitter.com/boson_lab']
- ]) ?>' copyright="© 2026 Boson Lab">
-    <!-- PJAX Container -->
+<?php $this->start('hero') ?>
+
+<!-- Horizontal Scroll Hero Section -->
+
+<boson-hero-layout>
+
     <div id="pjax-container" data-pjax-container>
         <horizontal-scroll-hero slides='<?= json_encode([
             [
@@ -56,5 +54,7 @@ $this->layout('layout::hero-master', [
             ]
         ]) ?>' autoplay-interval="5000" show-navigation show-scroll-hint></horizontal-scroll-hero>
     </div>
-</hero-layout>
+
+</boson-hero-layout>
+
 <?php $this->stop() ?>

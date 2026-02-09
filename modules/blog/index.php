@@ -1,18 +1,18 @@
 <?php
 $this->layout('layout::master', [
     'title' => 'Blog :: Boson',
-    //'showHeader' => true,
-    //'showFooter' => true,
-    //'cssUrl' => $cssUrl ?? '/build/assets/app.css',
-    //'jsUrl' => $jsUrl ?? '/build/assets/app.js',
+    'showHeader' => true,
+    'showFooter' => true,
+    'cssUrl' => '/build/assets/app.css',
+    'jsUrl' => '/build/assets/app.js',
     'currentRoute' => $currentRoute ?? 'blog.index',
-    //'blogCategories' => $blogCategories ?? [],
-    // 'docsVersion' => $docsVersion ?? null,
-    // 'docsCategories' => $docsCategories ?? [],
+    'isPjax' => isset($_SERVER['HTTP_X_PJAX']) && $_SERVER['HTTP_X_PJAX'] === 'true'
 ]);
 ?>
 
 <?php $this->start('main') ?>
+
+<div id="pjax-container" data-pjax-container>
 
 <boson-page-title>
     <h1>Blog</h1>
@@ -65,5 +65,7 @@ foreach ($articles ?? [] as $article) {
 <blog-list-section title="" subtitle="" base-url="<?= $this->url('blog.index') ?>" show-filters
     posts='<?= json_encode($posts, JSON_HEX_APOS | JSON_HEX_QUOT) ?>'>
 </blog-list-section>
+
+</div> <!-- pjax-container -->
 
 <?php $this->stop() ?>
